@@ -1,1 +1,22 @@
-ggg
+NAME
+      book - finds specific books from books1.csv based on a search string
+
+SYNOPSIS
+      book STRING
+      book -t STRING
+      book -a STRING
+      book -y START_YEAR END_YEAR
+
+DESCRIPTION
+      Finds books based on specific search string. The default searches the title.
+      For search by title or publication year, books are sorted by publication year.
+      For search by author, books are sorted alphabetically by author surname, breaking ties by given name.
+
+      -t --title
+           Searches for books with search string in the title
+      -a --author
+          Searches for books with seach string in author's first or last name
+      -y --year
+          Searches for books published between START_YEAR and END_YEAR inclusive.
+      -h --help
+          displays this help and exits.
