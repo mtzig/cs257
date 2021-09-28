@@ -5,6 +5,8 @@
 
 import booksdatasource
 import unittest
+from booksdatasource import Author
+from booksdatasource import Book
 
 class BooksDataSourceTester(unittest.TestCase):
     def setUp(self):
@@ -91,9 +93,9 @@ class BooksDataSourceTester(unittest.TestCase):
     def test_publication_sorting(self):
         books = self.data_source.books('D', 'year')
         self.assertTrue(len(books) == 5)
-        self.assertTrue(books[0] == Books('ABD'))
-        self.assertTrue(books[1] == Books('Dj'))
-        self.assertTrue(books[2] == Books('Di'))
+        self.assertTrue(books[0] == Book('ABD'))
+        self.assertTrue(books[1] == Book('Dj'))
+        self.assertTrue(books[2] == Book('Di'))
 
     
     def test_publication_sorting_title_tiebreaker(self):
