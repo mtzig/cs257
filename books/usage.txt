@@ -1,22 +1,32 @@
 NAME
-      book - finds specific books from books1.csv based on a search string
+      python3 books.py - finds specific books or authors from books1.csv based on a search string or search years
 
 SYNOPSIS
-      book STRING
-      book -t STRING
-      book -a STRING
-      book -y START_YEAR END_YEAR
+      python3 books.py -t STRING [-ts|-ys]
+      python3 books.py -a STRING
+      python3 books.py -y START_YEAR END_YEAR
 
 DESCRIPTION
-      Finds books based on specific search string. The default searches the title.
-      For search by title or publication year, books are sorted by publication year.
-      For search by author, books are sorted alphabetically by author surname, breaking ties by given name.
+      Finds books based on specific search string using one of two options -- title, publication year. For search by title, books are sorted by title on default. A flag can be set to sort by publication year. For search by publication years, books are sorted by publication with tiebreaker by title.
 
-      -t --title
+      Can also find list of authors based on specific search string. For search by author, authors are sorted alphabetically by author surname, breaking ties by given name.
+      
+      All searches are case insensitive.
+            
+      Note: --title, --author, and --year cannot be combined. A search may only be conducted on exactly one of the three options.
+
+
+
+      -t, --title
            Searches for books with search string in the title
-      -a --author
-          Searches for books with seach string in author's first or last name
-      -y --year
-          Searches for books published between START_YEAR and END_YEAR inclusive.
-      -h --help
-          displays this help and exits.
+      -ts, --titlesort
+          sorts books by title; is the default sort. ONLY works with -t command
+      -ys, --yearsort
+          sorts book by publication year, tiebreak by title. ONLY works with -t command
+      -a, --author
+          Searches for authors with search string in author's first and/or last name. An author's name is formatted as "GIVEN_NAME SURNAME" where GIVEN_NAME is the author's given name and SURNAME is the author's surname e. g. python3 books.py -a 'y o' will list the author "Tommy Orange"
+      -y, --year
+          Searches for books published between START_YEAR and END_YEAR inclusive
+      -h, --help
+          displays this help and exits
+    

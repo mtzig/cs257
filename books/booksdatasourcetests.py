@@ -1,6 +1,9 @@
 '''
    booksdatasourcetest.py
-   Thomas Zeng, Cole Weinstein, 26 September 2021
+   Code by Thomas Zeng and Cole Weinstein, 26 September 2021
+
+   For use in the "books" assignment at the beginning of Carleton's
+   CS 257 Software Design class, Fall 2021.
 '''
 
 import booksdatasource
@@ -11,6 +14,7 @@ from booksdatasource import Book
 class BooksDataSourceTester(unittest.TestCase):
     def setUp(self):
       self.data_source = booksdatasource.BooksDataSource('testerbooks.csv')
+      self.data_source2 = booksdatasource.BooksDataSource('books1.csv')
 
     def tearDown(self):
         pass
@@ -58,11 +62,20 @@ class BooksDataSourceTester(unittest.TestCase):
         self.assertTrue(authors[5] == Author('ZZ', 'BB'))
         self.assertTrue(authors[6] == Author('ZZ', 'BBB'))
 
+    def test_book_with_multiple_authors(self):
+        books = self.data_source2.books('Good Omens')
+        self.assertTrue(len(books) == 1)
+        authorList = []
+        for book in books:
+          for author in book.authors:
+            authorList.append(author)
+        self.assertTrue(authorList[0] == Author('Gaiman', 'Neil'))
+        self.assertTrue(authorList[1] == Author('Pratchett', 'Terry'))
 
     def test_unique_books(self):
         title = self.data_source.books('BBB')
         self.assertTrue(len(title) == 1)
-        self.assertTrue(title[0] == Author('BBB'))
+        self.assertTrue(title[0] == Book('BBB'))
 
     def test_find_multiple_books(self):
         books = self.data_source.books('A')
@@ -80,19 +93,10 @@ class BooksDataSourceTester(unittest.TestCase):
         self.assertTrue(len(books) == 2)
         self.assertTrue(books[0] == Book('ABD'))
         self.assertTrue(books[1] == Book('BAA'))
-
-
-    #def test_title_sorting_publication_date_tiebreaker(self):
-        #authors = self.data_source.authors('d') 
-        #self.assertTrue(len(authors) == 2)
-        #self.assertTrue(authors[0] == Author('XZ', 'Dj'))
-        #self.assertTrue(authors[1] == Author('YZ', 'Di'))
-        #self.assertTrue(authors[2] == Author('ZZ', 'ABD'))
-
     
     def test_publication_sorting(self):
         books = self.data_source.books('D', 'year')
-        self.assertTrue(len(books) == 5)
+        self.assertTrue(len(books) == 3)
         self.assertTrue(books[0] == Book('ABD'))
         self.assertTrue(books[1] == Book('Dj'))
         self.assertTrue(books[2] == Book('Di'))
@@ -136,7 +140,7 @@ class BooksDataSourceTester(unittest.TestCase):
         self.assertTrue(books[1] == Book('Di'))
 
     def test_between_years_only_end(self):
-        books = self.data_source.books_between_years('1998')
+        books = self.data_source.books_between_years(None,'1998')
         self.assertTrue(len(books) == 2)
         self.assertTrue(books[0] == Book('BBB'))
         self.assertTrue(books[1] == Book('BB'))
@@ -161,4 +165,3 @@ class BooksDataSourceTester(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
