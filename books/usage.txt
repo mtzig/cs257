@@ -26,7 +26,21 @@ DESCRIPTION
       -a, --author
           Searches for authors with search string in author's first and/or last name. An author's name is formatted as "GIVEN_NAME SURNAME" where GIVEN_NAME is the author's given name and SURNAME is the author's surname e. g. python3 books.py -a 'y o' will list the author "Tommy Orange"
       -y, --year
-          Searches for books published between START_YEAR and END_YEAR inclusive
+          Searches for books published between START_YEAR and END_YEAR inclusive. START_YEAR and END_YEAR must both be included.
       -h, --help
           displays this help and exits
+
+EXAMPLE
+	python3 books.py -t life -ts
+		Find all books with 'life' in the title and display them alphabetically by title.
+
+	python3 books.py -t life -ys
+		Find all books with 'life' in the title and display them ordered by publication year, ascending.
+	
+	python3 books.py -a brontë
+		Find all authors with 'brontë' in their name and display them ordered alphabetically by surname.
+
+	python3 books.py -y 1900 1999
+		Find all books published between 1900 and 1999 and display them ordered by publication year, ascending.
+		
     

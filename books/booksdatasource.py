@@ -3,7 +3,8 @@
     booksdatasource.py
     Interface by Jeff Ondich, 21 September 2021
     Code by Thomas Zeng, Cole Weinstein
-
+    revised by Thomas Zeng and Cole Weinstein, 9 October 2021
+    
     For use in the "books" assignment at the beginning of Carleton's
     CS 257 Software Design class, Fall 2021.
 '''
@@ -96,31 +97,33 @@ class BooksDataSource:
         file = open(books_csv_file_name)
         reader = csv.reader(file)
         for row in reader:
-          #parses all authors of a book into a list called author_info_array
           
           title = row[0]
-          publication_year = row[1]
+          publication_year = int(row[1])
           authors = []
 
-          #an array of author info each stored as a string
-          author_info_array = row[2].split(" and ")
-          for author_info in author_info_array:
+          #parses all authors of a book into a list called author_info_list
+          #each author's information is stored as a separate string element
+          author_info_list = row[2].split(' and ')
+          for author_info in author_info_list:
 
-            #an array of info for one author  
-            info_array = author_info.split(' ')
+            #a list of info for one author  
+            info_list = author_info.split(' ')
 
-            surname = info_array[-2]
-            given_name = info_array[0]
+            surname = info_list[-2]
+            given_name = info_list[0]
 
             #splits author's lifetime into [birth year, death year]
-            author_birth_death_years = info_array[-1].split('-')
+            author_birth_death_years = info_list[-1].split('-')
 
-            birth_year = author_birth_death_years[0][1:]
-            
-            #store death_year if author is dead
-            if author_birth_death_years[1]:
-                death_year = author_birth_death_years[1][:-1]
-            
+            birth_year = int(author_birth_death_years[0][1:])
+
+            #store death_year if author is dead otherwise none
+            if author_birth_death_years[1] != ')':
+                death_year = int(author_birth_death_years[1][:-1])
+            else:
+                death_year = None
+
             authors.append(Author(surname, given_name, birth_year, death_year))
           
           book = Book(title, publication_year, authors)
@@ -144,7 +147,7 @@ class BooksDataSource:
         
         #default setting, if no search_string provided
         if search_string is None:
-          search_string = ""
+          search_string = ''
         
         #dictionary to prevent duplicate Authors in matched_authors
         duplicate_author_dict = {}
@@ -154,7 +157,7 @@ class BooksDataSource:
           for author in book.authors:
 
             #concatenate author's given name and surname
-            full_name = author.given_name + " " + author.surname
+            full_name = author.given_name + ' ' + author.surname
             if search_string.lower() in full_name.lower():
               #checks that full_name is not already in matched_authors
               if full_name not in duplicate_author_dict:
@@ -185,7 +188,7 @@ class BooksDataSource:
 
         #default setting, if no search_string provided
         if search_string is None:
-          search_string = ""
+          search_string = ''
 
         #iterates through every book, adds the book to matched_books if they title contains search_text.
         for book in self.book_list:

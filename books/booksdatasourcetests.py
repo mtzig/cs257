@@ -1,5 +1,6 @@
 '''
    booksdatasourcetest.py
+
    Code by Thomas Zeng and Cole Weinstein, 26 September 2021
 
    For use in the "books" assignment at the beginning of Carleton's
@@ -120,7 +121,7 @@ class BooksDataSourceTester(unittest.TestCase):
         self.assertTrue(books[6] == Book('Dj'))
 
     def test_between_years(self):
-        books = self.data_source.books_between_years('1999', '2001')
+        books = self.data_source.books_between_years(1999, 2001)
         self.assertTrue(len(books) == 4)
         self.assertTrue(books[0] == Book('B'))
         self.assertTrue(books[1] == Book('ABD'))
@@ -128,25 +129,25 @@ class BooksDataSourceTester(unittest.TestCase):
         self.assertTrue(books[3] == Book('Dj'))
 
     def test_same_years(self):
-        books = self.data_source.books_between_years('2000','2000')
+        books = self.data_source.books_between_years(2000,2000)
         self.assertTrue(len(books) == 2)
         self.assertTrue(books[0] == Book('ABD'))
         self.assertTrue(books[1] == Book('BAA'))
 
     def test_between_years_only_start(self):
-        books = self.data_source.books_between_years('2001')
+        books = self.data_source.books_between_years(2001)
         self.assertTrue(len(books) == 2)
         self.assertTrue(books[0] == Book('Dj'))
         self.assertTrue(books[1] == Book('Di'))
 
     def test_between_years_only_end(self):
-        books = self.data_source.books_between_years(None,'1998')
+        books = self.data_source.books_between_years(None,1998)
         self.assertTrue(len(books) == 2)
         self.assertTrue(books[0] == Book('BBB'))
         self.assertTrue(books[1] == Book('BB'))
 
     def test_between_years_start_year_greater(self):
-        books = self.data_source.books_between_years('2001', '1999')
+        books = self.data_source.books_between_years(2001, 1999)
         self.assertTrue(len(books) == 0)
 
 
