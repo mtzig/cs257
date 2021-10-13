@@ -40,8 +40,9 @@ CREATE TABLE event_sport (
 	sport_id integer
 );
 
-CREATE TABLE name_event_game_medal (
+CREATE TABLE name_noc_event_game_medal (
 	name_id integer,
+	noc_id integer,
 	event_id integer,
 	game_id integer,
 	medal text

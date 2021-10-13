@@ -33,9 +33,9 @@ game_table = open('game.csv', 'w')
 sport_table = open('sport.csv', 'w')
 event_table = open('event.csv', 'w')
 
-name_noc_table = open('name_noc.csv','w')
+#name_country_table = open('name_country.csv','w')
 event_sport_table = open('event_sport.csv','w')
-name_event_game_medal_table = open('name_event_game_medal.csv','w')
+name_noc_event_game_medal_table = open('name_noc_event_game_medal.csv','w')
 
 name_reader = csv.reader(athlete_file)
 next(name_reader)
@@ -56,9 +56,9 @@ game_writer = csv.writer(game_table)
 sport_writer = csv.writer(sport_table)
 event_writer = csv.writer(event_table)
 
-name_noc_writer = csv.writer(name_noc_table)
+#name_country_writer = csv.writer(name_country_table) #change to name_country
 event_sport_writer = csv.writer(event_sport_table)
-name_event_game_medal_writer = csv.writer(name_event_game_medal_table)
+name_noc_event_game_medal_writer = csv.writer(name_noc_event_game_medal_table)
 
 for row in name_reader:
     #name_dict.add(tuple(row[0:5])) #can change later to allow last names
@@ -67,7 +67,7 @@ for row in name_reader:
         name_dict[row[0]] = row[0]
         
           #name_noc just do it each time
-        name_noc_writer.writerow([row[0]] + [noc_dict[row[7]]])
+        #name_noc_writer.writerow([row[0]] + [noc_dict[row[7]]])
     
     if row[8] not in game_dict:
         game_dict[row[8]] = game_id
@@ -93,7 +93,7 @@ for row in name_reader:
     #event_sport put this in event conditional
     
     #name_event_game_medal put last
-    name_event_game_medal_writer.writerow([row[0]] + [event_dict[row[13]]] + [game_dict[row[8]]] + [row[14]])
+    name_noc_event_game_medal_writer.writerow([row[0]] + [noc_dict[row[7]]] + [event_dict[row[13]]] + [game_dict[row[8]]] + [row[14]])
 
 #close all files at end
 noc_file.close()
@@ -106,6 +106,6 @@ game_table.close()
 sport_table.close()
 event_table.close()
 
-name_noc_table.close()
+#name_country_table.close()
 event_sport_table.close()
-name_event_game_medal_table.close()
+name_noc_event_game_medal_table.close()
