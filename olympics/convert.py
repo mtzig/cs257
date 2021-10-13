@@ -1,3 +1,10 @@
+'''
+covert.py
+by Thomas Zeng 10/12/21
+
+used to convert the olympics csv files into csv files usable by sql database
+'''
+
 import csv
 
 noc_file = open('noc_regions.csv')
