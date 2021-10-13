@@ -1,0 +1,15 @@
+\copy name FROM 'name.csv' DELIMITER ',' CSV NULL AS 'NA'
+
+\copy game FROM 'game.csv' DELIMITER ',' CSV NULL AS 'NA'
+
+\copy noc FROM 'noc.csv' DELIMITER ',' CSV NULL AS 'NA'
+
+\copy sport FROM 'sport.csv' DELIMITER ',' CSV NULL AS 'NA'
+
+\copy event FROM 'event.csv' DELIMITER ',' CSV NULL AS 'NA'
+
+\copy name_noc FROM 'name_noc.csv' DELIMITER ',' CSV NULL AS 'NA'
+
+\copy event_sport FROM 'event_sport.csv' DELIMITER ',' CSV NULL AS 'NA'
+
+\copy name_event_game_medal FROM 'name_event_game_medal.csv' DELIMITER ',' CSV NULL AS 'NA'
