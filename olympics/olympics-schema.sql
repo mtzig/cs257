@@ -1,37 +1,34 @@
-CREATE TABLE name (
-    id SERIAL,
+CREATE TABLE athlete (
+    id integer,
     name text,
-    sex text,
-    age integer,
-    height integer,
-	weight decimal
+    sex text
 );
 
 CREATE TABLE game (
-    id SERIAL,
+    id integer,
     year integer,
     season text,
     city text
 );
 
 CREATE TABLE noc (
-	id SERIAL,
+	id integer,
 	noc text,
 	country text
 );
 
 CREATE TABLE sport (
-	id SERIAL,
+	id integer,
 	sport text
 );
 
 CREATE TABLE event (
-	id SERIAL,
+	id integer,
 	event text
 );
 
-CREATE TABLE name_noc (
-	name_id integer,
+CREATE TABLE athlete_noc (
+	athlete_id integer,
 	noc_id integer
 );
 
@@ -40,8 +37,11 @@ CREATE TABLE event_sport (
 	sport_id integer
 );
 
-CREATE TABLE name_noc_event_game_medal (
-	name_id integer,
+CREATE TABLE medal (
+	athlete_id integer,
+	age integer,
+	height integer,
+	weight decimal,
 	noc_id integer,
 	event_id integer,
 	game_id integer,
