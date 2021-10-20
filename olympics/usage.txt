@@ -1,0 +1,23 @@
+NAME
+	python3 olympics.py - allows the user to issue specific queries to a database on all Olympic athletes and their medals
+
+SYNOPSIS
+	python3 olympics.py -a NOC_NAME
+	python3 olympics.py -g
+	python3 olympics.py -s
+
+DESCRIPTION
+	Can do the following three operations:
+		-find all the athletes that participated in the olympics from a specific National Olympic Comittee (NOC)
+		-list all the NOC and the number of gold medals won in decreasing order of gold medals
+		-list all of the NOC and the number of silver medals won in decreasing order of silver medals
+
+	
+	-a, --athlete
+		finds all the athletes that participated in the olympics from NOC_NAME
+	-g, --gold
+		list all the NOC and the cumulative number of gold medals they won in all olympics in decreasing order of gold medals
+	-s, --silver
+		list all of the NOC and the cumulative number of silver medals they won in all olympics in decreasing order of silver medals
+	-h, --help
+		displays this help and exits

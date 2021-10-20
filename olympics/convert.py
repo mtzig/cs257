@@ -33,7 +33,6 @@ game_table = open('game.csv', 'w')
 sport_table = open('sport.csv', 'w')
 event_table = open('event.csv', 'w')
 
-#athlete_country_table = open('athlete_country.csv','w')
 event_sport_table = open('event_sport.csv','w')
 medal_table = open('medal.csv','w')
 
@@ -78,13 +77,6 @@ for row in athlete_reader:
         event_sport_writer.writerow([event_id] + [sport_dict[row[12]]])
         event_id += 1
         
-        
-        
-  
-    
-    #event_sport put this in event conditional
-    
-    #athlete_event_game_medal put last
     medal_writer.writerow([row[0]] + row[3:6] + [noc_dict[row[7]]] + [event_dict[row[13]]] + [game_dict[row[8]]] + [row[14]])
 
 #close all files at end
@@ -98,6 +90,5 @@ game_table.close()
 sport_table.close()
 event_table.close()
 
-#athlete_country_table.close()
 event_sport_table.close()
 medal_table.close()
