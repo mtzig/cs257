@@ -14,8 +14,8 @@ from config import database
 from config import user
 
 def get_parsed_arguments():
-'''Get's parsed arguments from command line
-'''
+    '''Get's parsed arguments from command line
+    '''
     arg_parse_description = 'allows the user to issue specific queries to a database of Olympic athletes and their medals'
     athlete_help = 'finds all the athletes that participated in the olympics from a NOC as written in STRING'
     gold_help = 'list all the NOC and the cumulative number of gold medals they won in all olympics in decreasing order of gold medals'
@@ -34,8 +34,8 @@ def get_parsed_arguments():
     return parsed_arguments
 
 def create_connection():
-'''Creates a connection to the olympics database
-'''
+    '''Creates a connection to the olympics database
+    '''
     try:
         connection = psycopg2.connect(database = database, user = user, password = password)
     except Exception as e:
@@ -45,8 +45,8 @@ def create_connection():
     return connection
         
 def athletes_of_noc(noc_name, connection):
-'''Queries the olympics database for ahtletes that competed under noc_name
-'''
+    '''Queries the olympics database for ahtletes that competed under noc_name
+    '''
 
     query =  '''SELECT DISTINCT athlete.name
                 FROM athlete, medal, noc
@@ -63,8 +63,8 @@ def athletes_of_noc(noc_name, connection):
     return cursor
 
 def gold_table(connection):
-'''Queries the olympic database for a gold medal table
-'''
+    '''Queries the olympic database for a gold medal table
+    '''
     query = 'SELECT noc.noc, COUNT(medal.medal) FROM noc, medal WHERE noc.id = medal.noc_id AND medal.medal = \'Gold\' GROUP BY noc.noc ORDER BY COUNT(medal.medal) DESC;'
     try:
         cursor = connection.cursor()
@@ -76,8 +76,8 @@ def gold_table(connection):
     return cursor
         
 def silver_table(connection):
-'''Queries the olympic database for a silver medal table
-'''
+    '''Queries the olympic database for a silver medal table
+    '''
 
     query = 'SELECT noc.noc, COUNT(medal.medal) FROM noc, medal WHERE noc.id = medal.noc_id AND medal.medal = \'Silver\' GROUP BY noc.noc ORDER BY COUNT(medal.medal) DESC;'
     try:
@@ -90,8 +90,8 @@ def silver_table(connection):
     return cursor
 
 def display_cursor(cursor):
-'''Displays the information of cursor to standard output
-'''
+    '''Displays the information of cursor to standard output
+    '''
 
     for row in cursor:
         print(*row)
