@@ -17,21 +17,17 @@ from config import user
 
 
 app = flask.Flask(__name__)
-#connection = create_connection()
-##############################################
-def create_connection():
-    '''Creates a connection to the olympics database'''
 
-    try:
-        connection = psycopg2.connect(database = database, user = user, password = password)
-    except Exception as e:
-        print(e)
-        exit()
-        
-    return connection
+#Creates a connection to olympics database
+try:
+    connection = psycopg2.connect(database = database, user = user, password = password)
+except Exception as e:
+    print(e)
+    exit()
     
-def execute_query(query, connection, formatStrings = ()): #this might bug out with string format
+def execute_query(query, connection, formatStrings = ()):
     '''Executes a query and returns a cursor
+       formatString is a tuple of the formated strings for the query
     '''
     try:
         cursor = connection.cursor()
@@ -43,7 +39,7 @@ def execute_query(query, connection, formatStrings = ()): #this might bug out wi
     return cursor
     
 def cursor_to_dict(cursor, fields):
-    '''Generates a list of dictionary, assumes list fields is the same size as each row in cursor
+    '''Generates a list of dictionary, where fields is a list of the different variable names
     '''
     dictionary_list = []
     
@@ -54,11 +50,6 @@ def cursor_to_dict(cursor, fields):
         dictionary_list.append(dictionary)
     
     return dictionary_list
-            
-#####################################################
-
-#app = flask.Flask(__name__)
-connection = create_connection()
 
 def query_games(connection):
     '''Queries the olympic database for all the olympics games
@@ -71,6 +62,8 @@ def query_games(connection):
     return execute_query(query, connection)
     
 def query_nocs(connection):
+    '''Queries the olympic database for all the NOC name and abbreviations
+    '''
     query = '''SELECT noc.noc, noc.country
                FROM noc
                ORDER BY noc.noc;'''
@@ -78,8 +71,10 @@ def query_nocs(connection):
     return execute_query(query, connection)
     
 def query_game_medalists(game_id, noc, connection):
-    '''If noc = '', then no noc was specfied
+    '''Queries medalists from a certain Olympic game and noc (no noc by default)
     '''
+    
+    #Default, when no noc is provided
     if noc == '':
         query = '''SELECT DISTINCT medal.athlete_id, athlete.name, athlete.sex, sport.sport, event.event, medal.medal
                    FROM medal, athlete, sport, event, event_sport
@@ -111,20 +106,6 @@ def query_game_medalists(game_id, noc, connection):
         
     return execute_query(query, connection, formatString)
 
-def query_game_medalists_of_noc(game_id, connection):
-    query = '''SELECT DISTINCT medal.athlete_id, athlete.name, athlete.sex, sport.sport, event.event, medal.medal
-               FROM medal, athlete, sport, event, event_sport
-               WHERE medal.game_id = %s
-               AND ( medal.medal = 'Gold'
-               OR medal.medal = 'Silver'
-               OR medal.medal = 'Bronze')
-               AND athlete.id = medal.athlete_id
-               AND medal.event_id = event.id
-               AND event.id = event_sport.event_id
-               AND event_sport.sport_id = sport.id;'''
-               
-    return execute_query(query, connection,(game_id ,))
-
 @app.route('/games')
 def get_games():
     ''' Returns a list of dictionaries of Olympic games sorted by year
@@ -137,7 +118,7 @@ def get_games():
     
 @app.route('/nocs')
 def get_nocs():
-    ''' Returns a list of dictionaries of Olympic games sorted by year
+    ''' Returns a list of dictionaries of nocs abbreviation and name
     '''
 
     cursor = query_nocs(connection)
@@ -147,18 +128,17 @@ def get_nocs():
 
 @app.route('/medalists/games/<games_id>')  
 def get_medalists(games_id):
-    ''' Returns a list of dictionaries of Olympic games sorted by year
+    ''' Returns a list of dictionaries of Olympic medalists of a certain Olympic game and noc (no noc by default)
     '''
+    
     noc = flask.request.args.get('noc', default='', type=str)
-    cursor = query_game_medalists(games_id,noc,connection) #need to create connection
+    cursor = query_game_medalists(games_id,noc,connection)
     fields = ['athlete_id','athlete_name','athlete_sex','sport','event','medal']
     game_list = cursor_to_dict(cursor, fields)
     return json.dumps(game_list)
-###################################################
-
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser('A sample Flask application/API')
+    parser = argparse.ArgumentParser('A Flask application/API that returns data from an Olympics database')
     parser.add_argument('host', help='the host on which this application is running')
     parser.add_argument('port', type=int, help='the port on which this application is listening')
     arguments = parser.parse_args()
