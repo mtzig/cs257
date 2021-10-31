@@ -1,0 +1,45 @@
+Thomas Zeng
+Cole Weinstein
+
+A dataset of extinct/endangered languages. It gives information about the name, location, number of speakers and degree of endangerment of each language.
+
+The dataset can be accessed from kaggle at the following URL: https://www.kaggle.com/the-guardian/extinct-languages
+
+Title: Trying to find all endangered languages of a certain country (eg. Italy)
+Main Success Scenario:
+    1) User clicks on the country on the map.
+    2) Website requests list of endangered languages from that country from the database
+    3) Database returns all matching languages
+    4) Website then displays that list.
+    5) User is happy :)
+
+Title: Trying to find the number of speakers of a specific endangered language
+Main Success Scenario:
+    1) User clicks on the search bar and types in a language
+    2) User clickes enter
+    3) Website queries a database for information on the language
+    4) Website displays the information
+    5) User finds information on endangerment level
+    6) User is happy
+
+Title: User hovers over a dot on the map and is shown information about the endangered language in that area
+Main Success Scenario:
+    1) The user holds their cursor over a dot on the map
+    2) The website queries the database for information on the language with the matching latitude and longitude
+    3) The database find the matching language and returns information about it
+    4) The website displays a hovering text box next to the cursor
+    5) User is happy B)
+
+Title: User want to see a visualization of the location of all endangered language on a map
+Main Success Scenario:
+    1) User clicks on a toggle above the map
+    2) User changes the toggle from Country to language
+    3) The website produces a new visualization where dots representing each language appears on the map
+    4) User is very happy
+
+Title: User wants to find countries with a lot of endangered languages
+Main Success Scenario:
+    1) By default, the central map displays countries and colors them by number of endangered languages present in the country.
+    2) User consults the legend to see how many endangered languages are in the country
+    3) User is happy :D
+
