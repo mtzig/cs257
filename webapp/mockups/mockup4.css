@@ -1,0 +1,31 @@
+/*
+* Thomas Zeng, Cole Weinstein
+* CS257 11/4/21
+*/
+
+.language {
+  grid-area: header;
+}
+
+.names {
+  grid-area: info1;
+}
+
+.endangerment {
+  grid-area: info2;
+}
+
+.location {
+  grid-area: info3;
+}
+
+
+.container {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "header header"
+    "info1 info2"
+    "info3 .";
+}

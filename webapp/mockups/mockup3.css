@@ -1,0 +1,23 @@
+/*
+* Thomas Zeng, Cole Weinstein
+* CS257 11/4/21
+*/
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  margin: auto 10px;
+}
+
+.margin {
+  margin: auto 10px;
+}
+
+.languages {
+  margin: auto 35px;
+}
+
+.country-header {
+  font-size: 175%;
+}

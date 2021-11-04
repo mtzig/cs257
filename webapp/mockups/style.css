@@ -1,0 +1,35 @@
+/*
+* Thomas Zeng, Cole Weinstein
+* CS257 11/4/21
+*/
+
+body{
+  font-family: Helvetica;
+  font-size: 14px;
+}
+
+ul.navbar {
+  list-style-type: none;
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 0px;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+ul.navbar li {
+    float: left;
+}
+
+ul.navbar li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.navbar li a:hover {
+    background-color: #555;
+    color: white;
+}
