@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='language.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='language.js') }}" ></script>
+  </head>
+  <body>
+    <h1>Endangered Languages</h1>
+    <button type="button" id="country_button">All Countries</button>
+    <input type="text" placeholder="Enter a country..." class="search flex_containter_search" id="country_search">
+    <button type="button" id="search_button">search</button>
+    <ul id="country_languages"></ul>
+    <ul id="country_list"></ul>
+  </body>
+</html>
