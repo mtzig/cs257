@@ -8,12 +8,17 @@ window.onload = initialize;
 function initialize() {
     let country_button = document.getElementById('country_button');
     if (country_button) {
-        country_button.onclick = loadCountries;
+      country_button.onclick = toggleCountries;
     }
 
     let search = document.getElementById('search_button');
     if(search) {
       search.onclick = searchType;
+    }
+
+    let clear_button = document.getElementById('clear_button');
+    if(clear_button){
+      clear_button.onclick = clearData;
     }
 }
 
@@ -25,6 +30,39 @@ function getAPIBaseURL() {
                     + ':' + window.location.port
                     + '/api';
     return baseURL;
+}
+
+function toggleCountries() {
+    let country_button = document.getElementById('country_button');
+    if (country_button) {
+      if (country_button.value == "unloaded") {
+        loadCountries();
+        country_button.value = "loaded"
+      }
+      else {
+        let country_header = document.getElementById('country_header');
+        let country_list = document.getElementById('country_list');
+        country_header.innerHTML = '';
+        country_list.innerHTML = '';
+        country_button.value = "unloaded";
+      }
+    }
+}
+
+function clearData() {
+  let language_div = document.getElementById('language_info_div');
+  let country_header = document.getElementById('country_header');
+  let country_list = document.getElementById('country_list');
+  let country_language_header = document.getElementById('country_language_header');
+  let country_langauge_list = document.getElementById('country_language_list');
+  let country_button = document.getElementById('country_button');
+
+  language_div.innerHTML = '';
+  country_header.innerHTML = '';
+  country_list.innerHTML = '';
+  country_language_header.innerHTML = '';
+  country_langauge_list.innerHTML = '';
+  country_button.value = 'unloaded';
 }
 
 function loadCountries() {
@@ -95,6 +133,8 @@ function loadLanguages() {
     .catch(function(error) {
         console.log(error);
     });
+
+    country_search.value = '';
 }
 
 function loadLanguageInfo() {
@@ -107,12 +147,12 @@ function loadLanguageInfo() {
     .then((response) => response.json())
 
     .then(function(languages) {
-        let listBody = '';
-        //let header = '';
+        let divBody = '';
+        
         for (let k = 0; k < languages.length; k++) {
             let language = languages[k];
-            listBody += '<li>English Name: ' + language['en_name'] + '</li>\n'
-                      + '<li>Spanish Name: ' + language['es_name'] + '</li>\n'
+            let listBody = '';
+            listBody += '<li>Spanish Name: ' + language['es_name'] + '</li>\n'
                       + '<li>French Name: ' + language['fr_name'] + '</li>\n'
                       + '<li>Name in the Language: ' + language['native_name'] + '</li>\n'
                       + '<li>Number of Speakers: ' + language['speakers'] + '</li>\n'
@@ -120,23 +160,25 @@ function loadLanguageInfo() {
                       + '<li>Country: ' + language['country'] + '</li>\n'
                       + '<li>Latitude: ' + language['lat'] + '</li>\n'
                       + '<li>Longitude: ' + language['long'] + '</li>\n'
+
+            divBody += '<h2 id=\"language_' + k + '_header\">' + language['en_name'] + '</h2>\n'
+                     + '<ul id=\"language_' + k + '_list\">\n' 
+                        + listBody
+                     + ' </ul>\n';
         }
 
-        let header = document.getElementById('language_info_header');
-        if (header) {
-          header.innerHTML = languages[0]['en_name'];
-        }
-
-        // Put the table body we just built inside the table that's already on the page.
-        let languageList = document.getElementById('language_info_list');
-        if (languageList) {
-            languageList.innerHTML = listBody;
+        // Put the contents of the divBody we built into the div element on the page.
+        let div = document.getElementById('language_info_div');
+        if (div) {
+          div.innerHTML = divBody;
         }
     })
 
     .catch(function(error) {
         console.log(error);
     });
+
+    language_search.value = '';
 }
 
 function searchType() {
@@ -159,11 +201,11 @@ function searchType() {
         if (string_type_result == 0) {
           loadLanguages();
         }
-        else if (string_type_result == 1) {
+        else if (string_type_result >= 1) {
           loadLanguageInfo();
         }
         else {
-          alert('Error: Search input is not a language or country name.');
+          alert('Error: Search input is not an endangered language or country name.');
         }
     })
 

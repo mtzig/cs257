@@ -9,14 +9,20 @@
   </head>
   <body>
     <h1>Endangered Languages</h1>
-    <button type="button" id="country_button">All Countries</button>
+    <button type="button" id="country_button" value="unloaded">All Countries</button>
     <input type="text" placeholder="Enter a country or vulnerable language..." class="search flex_containter_search" id="search_box">
     <button type="button" id="search_button">search</button>
-    <h2 id="country_language_header"></h2>
-    <ul id="country_language_list"></ul>
-    <h2 id="country_header"></h2>
-    <ul id="country_list"></ul>
-    <h2 id="language_info_header"></h2>
-    <ul id="language_info_list"></ul>
+    <button type="button" id="clear_button">Clear All Data</button>
+    <div class="grid-container-data">
+      <div class="country_list_div">
+        <h2 id="country_header"></h2>
+        <ul id="country_list"></ul>
+      </div>
+      <div class="language_list_div">
+        <h2 id="country_language_header"></h2>
+        <ul id="country_language_list"></ul>
+      </div>
+      <div id="language_info_div"></div>
+    </div>
   </body>
 </html>

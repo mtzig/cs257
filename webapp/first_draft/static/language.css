@@ -9,3 +9,25 @@
   align-items: center;
   margin-bottom: 2px;
 }
+
+/*.country_list_div {
+  grid-row: 1;
+  grid-column-start: 1;
+}
+
+.language_list_div {
+  grid-row: 1;
+  grid-column-start: 2;
+}
+
+.language_info_div {
+  grid-row: 1;
+  grid-column-start: 3;
+}*/
+
+.grid-container-data {
+  display: grid;
+  width: 100vw;
+  column-gap: 12px;
+  grid-template-columns: repeat(3, 30vw);
+}

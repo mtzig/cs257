@@ -130,13 +130,13 @@ def get_search_type(search_string):
                         From languages
                         WHERE en_name ILIKE %s'''
     
-    search_status = 2; #function returns 0 if search_string is a country, 1 if it's a language, and 2 if it's neither.
+    search_status = -1; #function returns 0 if search_string is a country, 1 if it's a language, and -1 if it's neither.
     try:
         connection = get_connection()
         cursor = connection.cursor()
         cursor.execute(query_country, (search_string,))
         for row in cursor:
-          if row[0] == 1:
+          if row[0] >= 1:
             search_status = 0
         cursor.close()
         connection.close()
@@ -148,8 +148,8 @@ def get_search_type(search_string):
         cursor = connection.cursor()
         cursor.execute(query_language, (search_string,))
         for row in cursor:
-          if row[0] == 1:
-            search_status = 1
+          if row[0] >= 1:
+            search_status = row[0]
         cursor.close()
         connection.close()
     except Exception as e:
