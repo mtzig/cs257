@@ -28,7 +28,8 @@
      * his color choices, he makes stuff orange to force their hand. I am using
      * orange here both to remind you to change the color, and to make visible the
      * size and aspect ratio of the US map object. */
-    background: rgb(35, 110, 207);
+    background: #6796fd;
+    /* background: #236ecf; */
 }
 
 #goals {

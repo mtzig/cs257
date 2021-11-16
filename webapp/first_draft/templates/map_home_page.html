@@ -9,22 +9,19 @@
     <!--
     <script type="text/javascript" src="{{ url_for('static', filename='language.js') }}" ></script>
     -->
+  
+    <!-- These are required for the DataMaps library to work -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 
-        <!-- These are required for the DataMaps library to work -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <script src="static/datamaps.world.min.js"></script>
 
-        <script src="static/datamaps.world.min.js"></script>
-
-        <!-- Here's stuff I wrote for my sample -->
-        <link rel="stylesheet" type="text/css" href="static/map-sample-world.css"/>
-        <script src="static/map-home-page.js"></script>
+    <!-- Here's stuff I wrote for my sample -->
+    <link rel="stylesheet" type="text/css" href="static/map-sample-world.css"/>
+    <script src="static/map-home-page.js"></script>
   </head>
-
   <body>
-    <ul class="navbar">
-    </ul>
-    
+    <ul class="navbar"></ul>
     <h1>Endangered Languages</h1>
     <!--
     <button type="button" id="country_button" value="unloaded">All Countries</button>
@@ -35,5 +32,5 @@
     <button type="button" id="clear_button">Clear All Data</button>
     -->
     <div id="map-container"></div>
-    </body>
+  </body>
 </html>

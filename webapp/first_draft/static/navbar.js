@@ -1,6 +1,12 @@
-window.addEventListener('load', initialize);
+/*
+ * navbar.js
+ * Thomas Zeng and Cole Weinstein
+ * 15 November 2021
+ */
 
-function initialize() {
+window.addEventListener('load', initializeNavbar);
+
+function initializeNavbar() {
   fillNavbar();
 
   let search = document.getElementById('search_button');
@@ -16,7 +22,7 @@ function fillNavbar() {
   let navbar = document.getElementsByClassName('navbar');
   if(navbar) {
     navbar[0].innerHTML = '<li><a href=\"' + homeURL + '\">Language Map</a></li>\n' 
-                     + '<li><a href=\"' + aboutPageURL + '\">About</a></li>\n';
+                        + '<li><a href=\"' + aboutPageURL + '\">About</a></li>\n';
   }
 }
 
@@ -28,22 +34,22 @@ function getBaseURL() {
 }
 
 function getAPIBaseURL() {
-    baseURL = window.location.protocol
+  baseURL = window.location.protocol
           + '//' + window.location.hostname
           + ':' + window.location.port
           + '/api/';
   return baseURL;
 }
 
-function loadLanguages(country_code) {
-  window.location.href = getBaseURL() + '/country_info?country=' + country_code;
+function loadCountryTemplate(countryCode) {
+  window.location.href = getBaseURL() + '/country_info?country=' + countryCode;
 }
 
-function loadLanguageInfo() {
-  let language_search = document.getElementById('search_box')
-  let language_name = language_search.value; 
+function loadLanguageTemplate() {
+  let languageSearch = document.getElementById('search_box')
+  let languageName = languageSearch.value; 
     
-  window.location.href = getBaseURL() + '/language_info?language=' + language_name;
+  window.location.href = getBaseURL() + '/language_info?language=' + languageName;
   return false;
 }
 
@@ -52,27 +58,27 @@ function loadLanguageInfo() {
   * country or language and then dispatches to the correct page
   */
 function searchType() {
-  let search_box = document.getElementById('search_box');
-  let search_string = search_box.value;
-  let url = getAPIBaseURL() + '/search_type/' + search_string;
+  let searchBox = document.getElementById('search_box');
+  let searchString = searchBox.value;
+  let url = getAPIBaseURL() + '/search_type/' + searchString;
 
   fetch(url, {method: 'get'})
 
   .then((response) => response.json())
 
-  .then(function(string_types) {
-    let string_type_result;
-    for (let k = 0; k < string_types.length; k++) {
-        string_type_result = string_types[k]['search_type'];
+  .then(function(stringTypes) {
+    let stringTypeResult;
+    for (let k = 0; k < stringTypes.length; k++) {
+      stringTypeResult = stringTypes[k]['search_type'];
     }
 
     //api returns string of country code if it is a country
-    if (typeof string_type_result === 'string') {
-      loadLanguages(string_type_result);
+    if (typeof stringTypeResult === 'string') {
+      loadCountryTemplate(stringTypeResult);
     }
     //api returns number of languages found if it is a language
-    else if (string_type_result >= 1) {
-      loadLanguageInfo();
+    else if (stringTypeResult >= 1) {
+      loadLanguageTemplate();
     }
     else {
       alert('Error: Search input is not an endangered language or country name.');
@@ -80,6 +86,6 @@ function searchType() {
   })
 
   .catch(function(error) {
-      console.log(error);
+    console.log(error);
   });
 }

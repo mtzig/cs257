@@ -3,6 +3,10 @@
 * CS257 11/4/21
 */
 
+html { 
+  background-color: #d1e9ff;
+}
+
 body{
   font-family: Helvetica;
   font-size: 14px;
@@ -14,7 +18,7 @@ ul.navbar {
   margin-bottom: 15px;
   padding: 0px;
   overflow: hidden;
-  background-color: #17a848;
+  background-color: #48ce75;
 }
 
 ul.navbar li {
