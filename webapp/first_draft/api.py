@@ -3,12 +3,16 @@
     Thomas Zeng and Cole Weinstein, 8 November 2021
 
     Rough draft Flask API to support the final project application.
+    
+    have to install country_converter
+    pip install country_converter --upgrade
 '''
 import sys
 import flask
 import json
 import config
 import psycopg2
+import country_converter as coco
 
 api = flask.Blueprint('api', __name__)
 
@@ -20,31 +24,31 @@ def get_connection():
                             user=config.user,
                             password=config.password)
 
-@api.route('/countries/') 
-def get_countries():
-    ''' Returns a list of all the countries in our database. By        default, the list is presented in alphabetical order
-        by country_name.
+# @api.route('/countries/') 
+# def get_countries():
+#     ''' Returns a list of all the countries in our database. By        default, the list is presented in alphabetical order
+#         by country_name.
 
-        Returns an empty list if there's any database failure.
-    '''
-    query = '''SELECT country, id
-               FROM countries ORDER BY country '''
+#         Returns an empty list if there's any database failure.
+#     '''
+#     query = '''SELECT country, id
+#                FROM countries ORDER BY country '''
     
-    country_list = []
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        cursor.execute(query, tuple())
-        for row in cursor:
-            country = {'country':row[0],
-                      'id':row[1]}
-            country_list.append(country)
-        cursor.close()
-        connection.close()
-    except Exception as e:
-        print(e, file=sys.stderr)
+#     country_list = []
+#     try:
+#         connection = get_connection()
+#         cursor = connection.cursor()
+#         cursor.execute(query, tuple())
+#         for row in cursor:
+#             country = {'country':row[0],
+#                       'id':row[1]}
+#             country_list.append(country)
+#         cursor.close()
+#         connection.close()
+#     except Exception as e:
+#         print(e, file=sys.stderr)
 
-    return json.dumps(country_list)
+#     return json.dumps(country_list)
 
 @api.route('/languages/') 
 def get_languages():
@@ -72,11 +76,11 @@ def get_languages():
 
     return json.dumps(language_list)
 
-@api.route('/country/language/<country_name>')
-def get_languages_for_country(country_name):
+@api.route('/country/language/<country_code>')
+def get_languages_for_country(country_code):
     query = '''SELECT languages.en_name
                FROM countries, languages, languages_vulnerabilities, languages_countries
-               WHERE countries.country ILIKE %s
+               WHERE countries.country_code ILIKE %s
                  AND languages_countries.country_id = countries.id
                  AND languages_countries.language_vulnerability_id = languages_vulnerabilities.id
                  AND languages_vulnerabilities.language_id = languages.id
@@ -85,7 +89,7 @@ def get_languages_for_country(country_name):
     try:
         connection = get_connection()
         cursor = connection.cursor()
-        cursor.execute(query, (country_name,))
+        cursor.execute(query, (country_code,))
         for row in cursor:
             language = {'language_name':row[0]}
             language_list.append(language)
@@ -122,38 +126,72 @@ def get_info_for_language(language_name):
     
 @api.route('/search_type/<search_string>')
 def get_search_type(search_string):
-    query_country = '''SELECT COUNT(country) 
-                       FROM countries
-                       WHERE country ILIKE %s'''
+    #query_country = '''SELECT COUNT(country) 
+    #                   FROM countries
+    #                   WHERE country ILIKE %s'''
                
     query_language = '''SELECT COUNT(en_name)
                         From languages
                         WHERE en_name ILIKE %s'''
     
-    search_status = -1; #function returns 0 if search_string is a country, 1 if it's a language, and -1 if it's neither.
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        cursor.execute(query_country, (search_string,))
-        for row in cursor:
-          if row[0] >= 1:
-            search_status = 0
-        cursor.close()
-        connection.close()
-    except Exception as e:
-        print(e, file=sys.stderr)
-
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        cursor.execute(query_language, (search_string,))
-        for row in cursor:
-          if row[0] >= 1:
-            search_status = row[0]
-        cursor.close()
-        connection.close()
-    except Exception as e:
-        print(e, file=sys.stderr)
+    search_status = -1; #function returns alpha_3 code if country 1 if it's a language, and -1 otherwise.
+    # try:
+    #     search_status = pycountry.countries.search_fuzzy(search_string)[0].alpha_3
+    
+    # except Exception as e:
+    #     print(e, file=sys.stderr)
+    country_code = coco.convert(names=search_string, to='ISO3')
+    if country_code != 'not found':
+        search_status = country_code
+    else:
+        try:
+            connection = get_connection()
+            cursor = connection.cursor()
+            cursor.execute(query_language, (search_string,))
+            for row in cursor:
+              if row[0] >= 1:
+                search_status = row[0]
+            cursor.close()
+            connection.close()
+        except Exception as e:
+            print(e, file=sys.stderr)
 
     search_type = [{'search_type':search_status}]
     return json.dumps(search_type)
+
+@api.route('/country_data/')
+def get_country_data():
+    query_country_data = '''SELECT countries.country_code, COUNT(languages.id)
+               FROM countries, languages, languages_vulnerabilities, languages_countries
+               WHERE languages_countries.country_id = countries.id
+               AND languages_countries.language_vulnerability_id = languages_vulnerabilities.id
+               AND languages_vulnerabilities.language_id = languages.id
+               GROUP BY countries.country_code;'''
+               
+    query_country_language = '''SELECT languages.en_name
+               FROM countries, languages, languages_vulnerabilities, languages_countries
+               WHERE languages_countries.country_id = countries.id
+               AND languages_countries.language_vulnerability_id = languages_vulnerabilities.id
+               AND languages_vulnerabilities.language_id = languages.id
+               AND countries.country_code LIKE %s
+               LIMIT 5;'''
+    
+    country_data_dict = {}
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query_country_data, tuple())
+        for row in cursor:
+          language_list = []
+          cursor2 = connection.cursor()
+          cursor2.execute(query_country_language, (row[0],))
+          for row2 in cursor2:
+              language_list.append(row2[0])
+          cursor2.close()
+          country_data_dict[row[0]] = {'numLanguages' : row[1], 'languages': language_list}
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
+
+    return json.dumps(country_data_dict)

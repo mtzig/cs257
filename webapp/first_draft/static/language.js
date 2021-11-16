@@ -102,7 +102,7 @@ function loadCountries() {
     });
 }
 
-function loadLanguages() {
+function loadLanguagesFromCountry() {
     let country_search = document.getElementById('search_box')
     let country_name = country_search.value; 
     let url = getAPIBaseURL() + '/country/language/' + country_name;
@@ -192,14 +192,13 @@ function searchType() {
 
     .then(function(string_types) {
         let string_type_result = 0;
-        //let header = '';
         for (let k = 0; k < string_types.length; k++) {
             string_type_result += string_types[k]['search_type'];
         }
 
         // Call the appropriate method based on whether search_string is a country or a language.
         if (string_type_result == 0) {
-          loadLanguages();
+          loadLanguagesFromCountry();
         }
         else if (string_type_result >= 1) {
           loadLanguageInfo();

@@ -39,10 +39,11 @@ next(data_reader)
 
 for row in data_reader:
   countries = row[4].split(', ')
-  for country in countries:
+  country_codes = row[5].split(', ')
+  for index, country in enumerate(countries):
     if country not in c_d:
       c_d[country] = c_id
-      countries_writer.writerow([c_id, country])
+      countries_writer.writerow([c_id, country, country_codes[index]])
       c_id += 1
 
   

@@ -13,7 +13,24 @@ app.register_blueprint(api.api, url_prefix='/api')
 
 @app.route('/') 
 def home():
-    return flask.render_template('index.html')
+    return flask.render_template('map_home_page.html')
+
+@app.route('/country_info/')
+def country_info():
+    return flask.render_template('country_template.html')
+
+@app.route('/language_info/')
+def language_info():
+    return flask.render_template('language_template.html')
+
+@app.route('/about/')
+def display_about():
+    return flask.render_template('about.html')
+
+@app.route('/help/')
+def display_help():
+    help_text = open('templates/help.txt').read()
+    return flask.Response(help_text, mimetype='text/plain')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('An endangered languages application, including API & DB')

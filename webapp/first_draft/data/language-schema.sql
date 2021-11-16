@@ -1,6 +1,7 @@
 CREATE TABLE countries (
   id integer,
-  country text
+  country text,
+  country_code text
 );
 
 CREATE TABLE vulnerabilities (
