@@ -45,7 +45,9 @@ language and its pertinent information, in arbitrary unsorted order
    country - (TEXT) the countries the language is based in
 
 EXAMPLE(S):
-  /language/<language_name>
+  /language/Navajo
+  
+  [{"en_name": "Navajo", "es_name": "navajo", "fr_name": "navajo", "native_name": null, "speakers": 120000, "lat": 35.8044, "long": -108.475, "vulnerability": "Vulnerable", "countries": [{"country": "United States of America", "country_code": "USA"}]}]
 
 REQUEST: /search_type/<search_string>
 
@@ -67,6 +69,10 @@ EXAMPLE(S):
 
   [{"search_type": 1}]
   
+  /search_type/"adasd"
+  
+  [{"search_type": -1}]
+  
 REQUEST: /country_data/
 
 GET parameters
@@ -78,3 +84,5 @@ Each dictionary in this JSON will have the following fields.
 
    numLanguages -- (TEXT) the number of endangered languages in the country
    languages -- (ARRAY) a list of every endangered language in the country
+   
+   
