@@ -12,7 +12,6 @@ import flask
 import json
 import config
 import psycopg2
-import country_converter as coco
 
 api = flask.Blueprint('api', __name__)
 
