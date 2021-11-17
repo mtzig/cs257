@@ -166,24 +166,27 @@ def get_info_for_language(language_name):
     
 @api.route('/search_type/<search_string>')
 def get_search_type(search_string):
-  #query_country = '''SELECT COUNT(country) 
-  #                   FROM countries
-  #                   WHERE country ILIKE %s'''
+  query_country = '''SELECT countries.country_code 
+                     FROM countries
+                     WHERE country ILIKE %s'''
             
   query_language = '''SELECT COUNT(en_name)
                       FROM languages
                       WHERE en_name ILIKE %s'''
   
   search_status = -1; #function returns alpha_3 code if country 1 if it's a language, and -1 otherwise.
-  # try:
-  #   search_status = pycountry.countries.search_fuzzy(search_string)[0].alpha_3
-  
-  # except Exception as e:
-  #   print(e, file=sys.stderr)
-  country_code = coco.convert(names=search_string, to='ISO3')
-  if country_code != 'not found':
-    search_status = country_code
-  else:
+  try:
+      connection = get_connection()
+      cursor = connection.cursor()
+      cursor.execute(query_country, (search_string,))
+      for row in cursor:
+          search_status = row[0]
+      cursor.close()
+      connection.close()
+  except Exception as e:
+      print(e, file=sys.stderr)
+  #country_code = coco.convert(names=search_string, to='ISO3')
+  if search_status == -1:
     try:
       connection = get_connection()
       cursor = connection.cursor()

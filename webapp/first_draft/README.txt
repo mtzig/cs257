@@ -1,7 +1,5 @@
 AUTHORS: Thomas Zeng, Cole Weinstein
 
-USES MODULE: country_convert
--To install country_converter do: pip install country_converter
 
 DATA: Statistics about Endangered Languages, e.g. geographic data, num speakers, endangered level
 
@@ -23,8 +21,7 @@ FEATURES NOT YET WORKING:
 - dots on map representing a specific language and its location
 - color code for each country on map based on number of endangered languages in that country
 - robustness of search feature
-  - searching 'Han (Canada)' returns the page for Canada, the country, and not the page for Han, the Canadian language
+  - searching for countries has to be exactly like how they looked in original database, e.g. 'Iran (Republic of)'
   - languages with multiple names, like Boro, print duplicates of each language feature
     - add'l, no distinction of country for languages; ie. Boro (ES) is from '' and Karaboro is from 'Ethiopia, Togo', but the page for Boro lists 'Countries:  , Ethiopia, Togo' twice. These languages and the countries they are from should be distinguished
-- country_convert module matches string overzealously
 - better css/colors

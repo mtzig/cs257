@@ -59,9 +59,9 @@ the search_strng is.
                  (INTEGER) elsewise, -1 if not a valid searchstring, >1 if a language
 
 EXAMPLE(S):
-  /search_type/"Great Britain"
+  /search_type/"Italy"
   
-  [{"search_type": "GBR"}]
+  [{"search_type": "ITA"}]
 
   /search_type/"Beaver"
 

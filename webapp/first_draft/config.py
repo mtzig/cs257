@@ -1,3 +1,3 @@
-database='languages'
-user='cweinstein'
+database='webapp'
+user='tzeng'
 password=''
