@@ -38,16 +38,23 @@ ul.navbar li a:hover {
     color: white;
 }
 
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+}
+
 .search{
-  height: 20px;
-  width: 400px;
+  height: 18px;
+  width: 600px;
 }
 
 .flex-container-search {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 2px;
+  margin-bottom: 10px;
 }
 
 .grid-container-data {

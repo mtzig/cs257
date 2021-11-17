@@ -17,20 +17,25 @@
     <script src="static/datamaps.world.min.js"></script>
 
     <!-- Here's stuff I wrote for my sample -->
-    <link rel="stylesheet" type="text/css" href="static/map-sample-world.css"/>
+    <link rel="stylesheet" type="text/css" href="static/map-home-page.css"/>
     <script src="static/map-home-page.js"></script>
   </head>
   <body>
     <ul class="navbar"></ul>
-    <h1>Endangered Languages</h1>
+    
     <!--
     <button type="button" id="country_button" value="unloaded">All Countries</button>
     -->
-    <input type="text" placeholder="Enter a country or vulnerable language..." class="search flex_containter_search" id="search_box">
-    <button type="button" id="search_button">Search</button>
-    <!--
-    <button type="button" id="clear_button">Clear All Data</button>
-    -->
-    <div id="map-container"></div>
+    
+	
+	<div class="flex-container">
+	  <h1>Endangered Languages</h1>
+      <div class = "flex-container-search search">
+        <input type="text" placeholder="Enter a country or vulnerable language..." class="search flex_containter_search" id="search_box">
+		<button type="button" id="search_button">Search</button>
+      </div>
+      <div id="map-container" class ="map"></div>
+      <p>Sources: kaggle, theguardian</p>
+    </div>
   </body>
 </html>
