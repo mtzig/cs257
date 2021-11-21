@@ -76,15 +76,24 @@ function initializeMap() {
     projection: 'mercator',
     done: onMapDone, 
     data: countryData, // here's some data that will be used by the popup template
-    fills: { defaultFill: '#999999' },
+	//legend: True,
+    fills: { //defaultFill: '#999999' 
+		HIGH: '#2c0845',
+        LOW: '#123456',
+        MEDIUM: 'blue',
+        defaultFill: '#999999'
+	
+	},
     geographyConfig: {
       popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
-      borderColor: '#eeeeee', // state/country border color
+      borderColor: '#eeeeee', //country border color
       highlightFillColor: '#99dd99', // color when you hover on a state/country
       highlightBorderColor: '#000000', // border color when you hover on a state/country
     }
+	
   });
-
+	
+	map.legend();
   /*var bombs = [{
       name: 'Joe 4',
       radius: 1,
@@ -128,7 +137,7 @@ function initializeMap() {
               '</div>'].join('');
       }
   });*/
-
+	
 }
 
 

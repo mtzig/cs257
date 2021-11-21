@@ -230,7 +230,13 @@ def get_country_data():
       for row2 in cursor2:
         language_list.append(row2[0])
       cursor2.close()
-      country_data_dict[row[0]] = {'numLanguages' : row[1], 'languages': language_list}
+      if row[1] < 10:
+        fillVal = 'LOW'
+      elif row[1] < 50:
+        fillVal = 'MEDIUM'
+      else:
+        fillVal = 'HIGH'
+      country_data_dict[row[0]] = {'numLanguages' : row[1], 'languages': language_list, 'fillKey':fillVal}
     cursor.close()
     connection.close()
   except Exception as e:

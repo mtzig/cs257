@@ -1,3 +1,3 @@
-database=''
-user=''
+database='webapp'
+user='tzeng'
 password=''
