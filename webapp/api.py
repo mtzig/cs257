@@ -216,6 +216,7 @@ def get_country_data():
                                AND languages_countries.language_vulnerability_id = languages_vulnerabilities.id
                                AND languages_vulnerabilities.language_id = languages.id
                                AND countries.country_code LIKE %s
+                              ORDER BY languages.speakers
                               LIMIT 5;'''
   
   country_data_dict = {}

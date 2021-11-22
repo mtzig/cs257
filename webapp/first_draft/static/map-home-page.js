@@ -85,7 +85,7 @@ function initializeMap() {
 	
 	},
     geographyConfig: {
-      popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
+      //popupTemplate: hoverPopupTemplate, // call this to obtain the HTML for the hover popup
       borderColor: '#eeeeee', //country border color
       highlightFillColor: '#99dd99', // color when you hover on a state/country
       highlightBorderColor: '#000000', // border color when you hover on a state/country
@@ -157,7 +157,7 @@ function hoverPopupTemplate(geography, data) {
   }
 
   let hoverPopUpDisplay = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br>\n'
-                        + '<p>' + numLanguages + ' Endangered Languages</p><br>\n<ul>\n';
+                        + '<p>' + numLanguages + 'Endangered Languages</p><br>\n<p>Most Endangered Languages of This Country</p<ul>\n';
   for(language in languageArray){
     hoverPopUpDisplay += '<li>' + languageArray[language] + '</li>\n'
   }        

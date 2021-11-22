@@ -157,7 +157,7 @@ function hoverPopupTemplate(geography, data) {
   }
 
   let hoverPopUpDisplay = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br>\n'
-                        + '<p>' + numLanguages + ' Endangered Languages</p><br>\n<ul>\n';
+                        + '<p>' + numLanguages + ' Endangered Languages</p><br>\n<p>Most Endangered Languages of This Country</p<ul>\n';
   for(language in languageArray){
     hoverPopUpDisplay += '<li>' + languageArray[language] + '</li>\n'
   }        
