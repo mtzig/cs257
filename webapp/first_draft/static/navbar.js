@@ -10,6 +10,16 @@ function initializeNavbar() {
   fillNavbar();
 
   let search = document.getElementById('search_button');
+  let search_box = document.getElementById("search_box");
+
+  //lets you press enter to search	
+  search_box.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        search.click();
+    }
+});
+  
   if(search) {
     search.onclick = searchType;
   }
