@@ -146,22 +146,28 @@ function onMapDone(dataMap) {
 }
 
 function hoverPopupTemplate(geography, data) {
-  let numLanguages = 0;
-  if (data && 'numLanguages' in data) {
-    numLanguages = data.numLanguages;
-  }
+  let hoverPopUpDisplay;
+  let numLanguages;
+  
+  if (data) {
+	if (data && 'numLanguages' in data) {
+		numLanguages = data.numLanguages;
+	}
 
-  let languageArray = [];
-  if (data && 'languages' in data) {
-    languageArray = data.languages;
-  }
+	let languageArray = [];
+	if (data && 'languages' in data) {
+		languageArray = data.languages;
+	}
 
-  let hoverPopUpDisplay = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br>\n'
+	hoverPopUpDisplay = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br>\n'
                         + '<p>' + numLanguages + ' Endangered Languages</p><br>\n<p>Most Endangered Languages of This Country</p<ul>\n';
-  for(language in languageArray){
-    hoverPopUpDisplay += '<li>' + languageArray[language] + '</li>\n'
-  }        
-  hoverPopUpDisplay += '</ul>\n</div>';
+	for(language in languageArray){
+		hoverPopUpDisplay += '<li>' + languageArray[language] + '</li>\n'
+	}        
+	hoverPopUpDisplay += '</ul>\n</div>';
+  }else {
+	  hoverPopUpDisplay = '<div class="hoverpopup"><strong>No Data</strong><br>\n'
+  }
 
   return hoverPopUpDisplay;
 }
