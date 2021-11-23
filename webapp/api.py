@@ -2,10 +2,7 @@
   api.py
   Thomas Zeng and Cole Weinstein, 8 November 2021
 
-  Rough draft Flask API to support the final project application.
-  
-  have to install country_converter
-  pip install country_converter --upgrade
+  Flask API to support the final project application.
 '''
 import sys
 import flask
@@ -78,8 +75,8 @@ def get_languages():
 
       Returns an empty list if there's any database failure.
   '''
-  query = '''SELECT en_name , id
-              FROM languages ORDER BY en_name '''
+  query = '''SELECT languages.en_name, languages.id
+              FROM languages ORDER BY languages.en_name '''
   
   language_list = []
   try:
@@ -162,13 +159,13 @@ def get_info_for_language(language_name):
     
 @api.route('/search_type/<search_string>')
 def get_search_type(search_string):
-  query_country = '''SELECT country_code 
-                     FROM countries_short_name
-                     WHERE %s ILIKE country_name'''
+  query_country = '''SELECT countries_short_names.country_code 
+                     FROM countries_short_names
+                     WHERE %s ILIKE country_short_names.country_name'''
             
-  query_language = '''SELECT COUNT(en_name)
+  query_language = '''SELECT COUNT(languages.en_name)
                       FROM languages
-                      WHERE en_name ILIKE %s'''
+                      WHERE languages.en_name ILIKE %s'''
   
   search_status = -1; #function returns alpha_3 code if country 1 if it's a language, and -1 otherwise.
   try:
