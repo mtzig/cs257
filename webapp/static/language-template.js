@@ -51,7 +51,7 @@ function loadLanguageInfo() {
       let countriesList = language['countries'];
       let countriesHTML = '';
       for(let c = 0; c < countriesList.length; c++) {
-        countryURL = getBaseURL() + 'country_info/?country=' + countriesList[c]['country_code'];
+        countryURL = getBaseURL() + '/country_info/?country=' + countriesList[c]['country_code'];
         countriesHTML += '<a href=\"' + countryURL + '\">' + countriesList[c]['country'] + '</a>, ';
       }
       countriesHTML = countriesHTML.substring(0, countriesHTML.length-2);

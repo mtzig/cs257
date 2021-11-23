@@ -74,7 +74,7 @@ function loadLanguagesFromCountry() {
     let listBody = '';
     for (let k = 0; k < languages.length; k++) {
       let language = languages[k];
-      url = getBaseURL() + 'language_info/?language=' + language['language_name'] + '&country=' + countryCode;
+      url = getBaseURL() + '/language_info/?language=' + language['language_name'] + '&country=' + countryCode;
       listBody += '<li><a href="' + url + '">' + language['language_name'] + '</a></li>\n';
     }
 
