@@ -9,10 +9,6 @@
 
 window.addEventListener('load', initializeCountryTemplate);
 
-// This is example data that gets used in the click-handler below. Also, the fillColor
-// specifies the color those countries should be. There's also a default color specified
-// in the Datamap initializer below.
-
 function getBaseURL() {
   let baseURL = window.location.protocol
                   + '//' + window.location.hostname

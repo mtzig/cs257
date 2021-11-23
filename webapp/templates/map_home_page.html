@@ -6,38 +6,26 @@
     <title>Index</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
     <script type="text/javascript" src="{{ url_for('static', filename='navbar.js') }}"></script>
-    <!--
-    <script type="text/javascript" src="{{ url_for('static', filename='language.js') }}" ></script>
-    -->
-  
-    <!-- These are required for the DataMaps library to work -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
-
     <script src="static/datamaps.world.min.js"></script>
-
-    <!-- Here's stuff I wrote for my sample -->
-    <link rel="stylesheet" type="text/css" href="static/map-home-page.css"/>
-    <script src="static/map-home-page.js"></script>
   </head>
+  
   <body>
-    <ul class="navbar"></ul>
+	  <div class="flex-container">
+	    <h1>Endangered Languages</h1>
+      
+      <div class = "flex-container-search search">
+        <input type="text" placeholder="Enter a country or vulnerable language..." class="search flex_containter_search" id="search_box">
+		    <button type="button" id="search_button">Search</button>
+      </div>
     
-    <!--
-    <button type="button" id="country_button" value="unloaded">All Countries</button>
-    -->
-    
-	
-	<div class="flex-container">
-	  <h1>Endangered Languages</h1>
-    <div class = "flex-container-search search">
-      <input type="text" placeholder="Enter a country or vulnerable language..." class="search flex_containter_search" id="search_box">
-		  <button type="button" id="search_button">Search</button>
-    </div>
-    <div id="map-container"></div>
+      <div id="map-container"></div>
       <p>Sources: kaggle, theguardian</p>
-      <!-- This div adds 175 pixels to the webpage to prevent stuttering caused by the hover pop ups.-->
+      
+      <!-- adds 175 pixels to the webpage to prevent stuttering caused by the hover pop ups.-->
       <div id="empty-div"></div>
+    
     </div>
   </body>
 </html>

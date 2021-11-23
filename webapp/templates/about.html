@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -7,12 +8,17 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
     <script type="text/javascript" src="{{ url_for('static', filename='navbar.js') }}" ></script>
   </head>
+  
   <body>
-    <ul class="navbar">
-    </ul>
-    <input type="text" placeholder="Enter a country or vulnerable language..." class="search flex_containter_search" id="search_box">
+
+    <ul class="navbar"></ul>
+
+    <input type="text" placeholder="Enter a country or vulnerable language..." class="search flex_containter_search" id="search_box">  
     <button type="button" id="search_button">search</button>
+    
     <h1>About</h1>
     <p>This website was created by Thomas Zeng and Cole Weinstein for Carleton's CS257 final project. It was built using references from w3schools, Mozilla Developer Network Web Docs, and Jeff Ondich's sample html pages.</p>
+  
   </body>
+
 </html>

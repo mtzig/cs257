@@ -3,6 +3,7 @@
   Thomas Zeng and Cole Weinstein, 8 November 2021
 
   Flask API to support the final project application.
+  When comparing strings in SQL calls, case is always ignored.
 '''
 import sys
 import flask
@@ -15,40 +16,17 @@ api = flask.Blueprint('api', __name__)
 def get_connection():
   ''' Returns a connection to the database described in the
       config module. May raise an exception as described in the
-      documentation for psycopg2.connect. '''
+      documentation for psycopg2.connect.
+  '''
   return psycopg2.connect(database=config.database,
                           user=config.user,
                           password=config.password)
 
-# @api.route('/countries/') 
-# def get_countries():
-#     ''' Returns a list of all the countries in our database. By        default, the list is presented in alphabetical order
-#         by country_name.
-
-#         Returns an empty list if there's any database failure.
-#     '''
-#     query = '''SELECT country, id
-#                FROM countries ORDER BY country '''
-    
-#     country_list = []
-#     try:
-#         connection = get_connection()
-#         cursor = connection.cursor()
-#         cursor.execute(query, tuple())
-#         for row in cursor:
-#             country = {'country':row[0],
-#                       'id':row[1]}
-#             country_list.append(country)
-#         cursor.close()
-#         connection.close()
-#     except Exception as e:
-#         print(e, file=sys.stderr)
-
-#     return json.dumps(country_list)
-
 @api.route('/country/name/<country_code>')
 def get_country_name(country_code):
-  '''Returns the name of a country based on a country code.
+  ''' Returns the name of a country based on a country code.
+      Country info gathered from country_short_names (a more
+      complete list of country names).
   '''
 
   query = '''SELECT countries_short_names.country_name
@@ -72,6 +50,10 @@ def get_country_name(country_code):
 
 @api.route('/country/language/<country_code>')
 def get_languages_for_country(country_code):
+  ''' Returns a list of all endangered languages in a country.
+      The country is specified via a country code.
+  '''
+
   query = '''SELECT languages.en_name
              FROM countries, languages, languages_countries
              WHERE countries.country_code ILIKE %s
@@ -95,6 +77,11 @@ def get_languages_for_country(country_code):
 
 @api.route('/language/<language_name>')
 def get_info_for_language(language_name):
+  ''' Returns all of the specific information about
+      a language. The data is formatted in a list of
+      dictionaries, although there will only be one
+      dictionary in the list, with 9 keys.
+  '''
   query_language_info = '''SELECT languages.en_name, languages.es_name, languages.fr_name, languages.native_name, languages.speakers, languages.lat, languages.long, vulnerabilities.vulnerability
                            FROM languages, vulnerabilities
                            WHERE languages.en_name ILIKE %s
@@ -135,6 +122,16 @@ def get_info_for_language(language_name):
     
 @api.route('/search_type/<search_string>')
 def get_search_type(search_string):
+  ''' Returns information about the type of data the
+      specified search string is. For example, if the
+      search string is a country's name, this function
+      returns that country's alpha 3 code. If the search
+      string is a language, the function returns the
+      number of languages whose English name matches
+      the search string. (This number is almost always
+      1.) If the search string doesn't match either of
+      these fields, the function returns -1.
+  '''
   query_country = '''SELECT countries_short_names.country_code 
                      FROM countries_short_names
                      WHERE %s ILIKE countries_short_names.country_name'''
@@ -143,7 +140,7 @@ def get_search_type(search_string):
                       FROM languages
                       WHERE languages.en_name ILIKE %s'''
   
-  search_status = -1; #function returns alpha_3 code if country 1 if it's a language, and -1 otherwise.
+  search_status = -1; #function returns alpha_3 code if country, 1 if it's a language, and -1 otherwise.
   try:
       connection = get_connection()
       cursor = connection.cursor()
@@ -172,6 +169,8 @@ def get_search_type(search_string):
 
 @api.route('/country_data/')
 def get_country_data():
+  ''' Returns 
+  '''
   query_country_data = '''SELECT countries.country_code, COUNT(languages.id)
                           FROM countries, languages, languages_countries
                           WHERE languages_countries.country_id = countries.id
@@ -198,13 +197,17 @@ def get_country_data():
       for row2 in cursor2:
         language_list.append(row2[0])
       cursor2.close()
-      if row[1] < 10:
+      
+      #sets the color of country to be displayed on map
+      if row[1] < 21:
         fillVal = 'LOW'
-      elif row[1] < 50:
+      elif row[1] < 81:
         fillVal = 'MEDIUM'
       else:
         fillVal = 'HIGH'
+
       country_data_dict[row[0]] = {'numLanguages' : row[1], 'languages': language_list, 'fillKey':fillVal}
+
     cursor.close()
     connection.close()
   except Exception as e:

@@ -64,6 +64,7 @@ function loadLanguageInfo() {
                         + '<li>Latitude: ' + language['lat'] + '</li>\n'
                         + '<li>Longitude: ' + language['long'] + '</li>\n'
     }
+    
     // Put the contents of the divBody we built into the div element on the page.
     let title = document.getElementById('title');
     if (title) {
