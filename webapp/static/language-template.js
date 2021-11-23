@@ -39,6 +39,11 @@ function loadLanguageInfo() {
     let endangermentListBody = '';
     let locationListBody = '';
 
+    languages = json.parse(languages,(key, value) =>
+    value == null
+    ? value = 'n/a' // set value to 'n/a' if it was null
+    : value);
+
     // Resolve: if k>1, info for every language becomes incoherently merged.
     for (let k = 0; k < languages.length; k++) {
       let language = languages[k];

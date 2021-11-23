@@ -52,8 +52,8 @@ def get_country_name(country_code):
   '''
 
   query = '''SELECT countries_short_names.country_name
-             FROM countries_short_name
-             WHERE countries_short_name.country_code ILIKE %s;'''
+             FROM countries_short_names
+             WHERE countries_short_names.country_code ILIKE %s;'''
   
   country_list = []
   try:
@@ -69,30 +69,6 @@ def get_country_name(country_code):
 
   return json.dumps(country_list)
 
-@api.route('/languages/') 
-def get_languages():
-  ''' Returns a list of all the languages in our database. By default, the list is presented in alphabetical order by en_name.
-
-      Returns an empty list if there's any database failure.
-  '''
-  query = '''SELECT languages.en_name, languages.id
-              FROM languages ORDER BY languages.en_name '''
-  
-  language_list = []
-  try:
-    connection = get_connection()
-    cursor = connection.cursor()
-    cursor.execute(query, tuple())
-    for row in cursor:
-      language = {'language':row[0],
-                  'id':row[1]}
-      language_list.append(language)
-    cursor.close()
-    connection.close()
-  except Exception as e:
-    print(e, file=sys.stderr)
-
-  return json.dumps(language_list)
 
 @api.route('/country/language/<country_code>')
 def get_languages_for_country(country_code):
