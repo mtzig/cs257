@@ -17,7 +17,7 @@ CREATE TABLE languages (
   native_name text,
   speakers int,
   lat decimal(7,4),
-  long decimal(7,4)
+  long decimal(7,4),
   vulnerability_id integer
 );
 

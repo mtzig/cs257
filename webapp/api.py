@@ -54,7 +54,7 @@ def get_country_name(country_code):
   '''Returns the name of a country based on a country code.
   '''
 
-  query = '''SELECT country
+  query = '''SELECT countries.country
              FROM countries
              WHERE countries.country_code ILIKE %s;'''
   
