@@ -39,7 +39,7 @@ function loadLanguageInfo() {
     let endangermentListBody = '';
     let locationListBody = '';
 
-    languages = JSON.parse(languages,(key, value) =>
+    languages = JSON.parse(JSON.stringify(languages),(key, value) =>
     value == null
     ? value = 'n/a' // set value to 'n/a' if it was null
     : value);
