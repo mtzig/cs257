@@ -1,5 +1,0 @@
-\copy countries FROM 'countries.csv' DELIMITER ',' CSV NULL as 'NA'
-\copy languages_vulnerabilities FROM 'languages_vulnerabilities.csv' DELIMITER ',' CSV NULL as 'NA'
-\copy languages FROM 'languages.csv' DELIMITER ',' CSV NULL as 'NA'
-\copy vulnerabilities FROM 'vulnerabilities.csv' DELIMITER ',' CSV NULL as 'NA'
-\copy languages_countries FROM 'languages_countries.csv' DELIMITER ',' CSV NULL as 'NA'
