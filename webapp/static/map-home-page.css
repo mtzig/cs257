@@ -31,6 +31,10 @@
   cursor: pointer;
 }
 
+.datamaps-legend {
+  position: static;
+}
+
 .hoverpopup {
     background: #eeeeee;
     border: 1px black solid;
