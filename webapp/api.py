@@ -100,11 +100,10 @@ def get_languages():
 @api.route('/country/language/<country_code>')
 def get_languages_for_country(country_code):
   query = '''SELECT languages.en_name
-             FROM countries, languages, languages_vulnerabilities, languages_countries
+             FROM countries, languages, languages_countries
              WHERE countries.country_code ILIKE %s
               AND languages_countries.country_id = countries.id
-              AND languages_countries.language_vulnerability_id = languages_vulnerabilities.id
-              AND languages_vulnerabilities.language_id = languages.id
+              AND languages_countries.language__id = languages.id
              ORDER BY languages.en_name'''
   language_list = []
   try:
@@ -124,16 +123,14 @@ def get_languages_for_country(country_code):
 @api.route('/language/<language_name>')
 def get_info_for_language(language_name):
   query_language_info = '''SELECT languages.en_name, languages.es_name, languages.fr_name, languages.native_name, languages.speakers, languages.lat, languages.long, vulnerabilities.vulnerability
-                           FROM languages, vulnerabilities, languages_vulnerabilities
+                           FROM languages, vulnerabilities
                            WHERE languages.en_name ILIKE %s
-                            AND languages_vulnerabilities.language_id = languages.id
-                            AND languages_vulnerabilities.vulnerability_id = vulnerabilities.id'''
+                            AND languages.vulnerability_id. = vulnerabilities.id'''
   
   query_language_countries = '''SELECT countries.country, countries.country_code
-                                FROM countries, languages, languages_vulnerabilities, languages_countries
+                                FROM countries, languages, languages_countries
                                 WHERE languages.en_name ILIKE %s
-                                 AND languages_vulnerabilities.language_id = languages.id
-                                 AND languages_countries.language_vulnerability_id = languages_vulnerabilities.id
+                                 AND languages_countries.language_id = languages.id
                                  AND languages_countries.country_id = countries.id'''
 
   language_list = []
@@ -165,9 +162,9 @@ def get_info_for_language(language_name):
     
 @api.route('/search_type/<search_string>')
 def get_search_type(search_string):
-  query_country = '''SELECT countries.country_code 
-                     FROM countries
-                     WHERE %s ILIKE country'''
+  query_country = '''SELECT country_code 
+                     FROM countries_short_name
+                     WHERE %s ILIKE country_name'''
             
   query_language = '''SELECT COUNT(en_name)
                       FROM languages
@@ -184,7 +181,6 @@ def get_search_type(search_string):
       connection.close()
   except Exception as e:
       print(e, file=sys.stderr)
-  #country_code = coco.convert(names=search_string, to='ISO3')
   if search_status == -1:
     try:
       connection = get_connection()
@@ -204,17 +200,15 @@ def get_search_type(search_string):
 @api.route('/country_data/')
 def get_country_data():
   query_country_data = '''SELECT countries.country_code, COUNT(languages.id)
-                          FROM countries, languages, languages_vulnerabilities, languages_countries
+                          FROM countries, languages, languages_countries
                           WHERE languages_countries.country_id = countries.id
-                           AND languages_countries.language_vulnerability_id = languages_vulnerabilities.id
-                           AND languages_vulnerabilities.language_id = languages.id
+                           AND languages_countries.language_id = languages.id
                           GROUP BY countries.country_code;'''
             
   query_country_language = '''SELECT languages.en_name
-                              FROM countries, languages, languages_vulnerabilities, languages_countries
+                              FROM countries, languages, languages_countries
                               WHERE languages_countries.country_id = countries.id
-                               AND languages_countries.language_vulnerability_id = languages_vulnerabilities.id
-                               AND languages_vulnerabilities.language_id = languages.id
+                               AND languages_countries.language_id = languages.id
                                AND countries.country_code LIKE %s
                               ORDER BY languages.speakers
                               LIMIT 5;'''

@@ -18,16 +18,16 @@ CREATE TABLE languages (
   speakers int,
   lat decimal(7,4),
   long decimal(7,4)
-);
-
-CREATE TABLE languages_vulnerabilities (
-  id integer,
-  language_id integer,
   vulnerability_id integer
 );
 
 CREATE TABLE languages_countries (
   id integer,
-  language_vulnerability_id integer,
+  language_id integer,
   country_id integer
 );
+
+CREATE TABLE countries_short_names (
+  country_name text,
+  country_code text
+)

@@ -18,8 +18,8 @@ vulnerabilities_file = open('vulnerabilities.csv', 'w')
 vulnerabilities_writer = csv.writer(vulnerabilities_file)
 languages_file = open('languages.csv', 'w')
 languages_writer = csv.writer(languages_file)
-languages_vulnerabilities_file = open('languages_vulnerabilities.csv', 'w')
-languages_vulnerabilities_writer = csv.writer(languages_vulnerabilities_file)
+#languages_vulnerabilities_file = open('languages_vulnerabilities.csv', 'w')
+#languages_vulnerabilities_writer = csv.writer(languages_vulnerabilities_file)
 languages_countries_file = open('languages_countries.csv', 'w')
 languages_countries_writer = csv.writer(languages_countries_file)
 
@@ -54,9 +54,9 @@ for row in data_reader:
     vulnerabilities_writer.writerow([v_id, vuln])
     v_id += 1
 
-  languages_writer.writerow([l_id, row[1], row[3], row[2], row[9], row[10], row[12], row[13]])
+  languages_writer.writerow([l_id, row[1], row[3], row[2], row[9], row[10], row[12], row[13], v_d[row[7]]])
   
-  languages_vulnerabilities_writer.writerow([l_v_id, l_id, v_d[vuln]])
+  #languages_vulnerabilities_writer.writerow([l_v_id, l_id, v_d[vuln]])
 
   for country in countries:
     languages_countries_writer.writerow([l_c_id, l_v_id, c_d[country]])
@@ -69,5 +69,5 @@ data_file.close()
 countries_file.close()
 vulnerabilities_file.close()
 languages_file.close()
-languages_vulnerabilities_file.close()
+#languages_vulnerabilities_file.close()
 languages_countries_file.close()

@@ -118,23 +118,25 @@ function hoverPopupTemplate(geography, data) {
   let numLanguages;
   
   if (data) {
-	if (data && 'numLanguages' in data) {
-		numLanguages = data.numLanguages;
-	}
+    if (data && 'numLanguages' in data) {
+      numLanguages = data.numLanguages;
+    }
 
-	let languageArray = [];
-	if (data && 'languages' in data) {
-		languageArray = data.languages;
-	}
+    let languageArray = [];
+    if (data && 'languages' in data) {
+      languageArray = data.languages;
+    }
 
-	hoverPopUpDisplay = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br>\n'
-                        + '<p>' + numLanguages + ' Endangered Languages</p><br>\n<p>Most Endangered Languages of This Country</p<ul>\n';
-	for(language in languageArray){
-		hoverPopUpDisplay += '<li>' + languageArray[language] + '</li>\n'
-	}        
-	hoverPopUpDisplay += '</ul>\n</div>';
-  }else {
-	  hoverPopUpDisplay = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br><strong>No Data</strong><br>\n</div>'
+    hoverPopUpDisplay = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br>\n'
+                          + '<p>' + numLanguages + ' Endangered Languages</p><br>\n<p>Most Endangered Languages of This Country</p<ul>\n';
+
+    for(language in languageArray){
+      hoverPopUpDisplay += '<li>' + languageArray[language] + '</li>\n'
+    }
+
+    hoverPopUpDisplay += '</ul>\n</div>';
+  } else {
+	  hoverPopUpDisplay = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br><p>No Data</p><br>\n</div>'
   }
 
   return hoverPopUpDisplay;
