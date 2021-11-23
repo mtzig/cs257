@@ -166,7 +166,7 @@ function hoverPopupTemplate(geography, data) {
 	}        
 	hoverPopUpDisplay += '</ul>\n</div>';
   }else {
-	  hoverPopUpDisplay = '<div class="hoverpopup"><strong>No Data</strong><br>\n'
+	  hoverPopUpDisplay = '<div class="hoverpopup"><strong>' + geography.properties.name + '</strong><br><strong>No Data</strong><br>\n</div>'
   }
 
   return hoverPopUpDisplay;

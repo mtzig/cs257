@@ -27,7 +27,7 @@ function getAPIBaseURL() {
 function loadLanguageInfo() {
   let params = (new URL(document.location)).searchParams;
   let languageEnglishName = params.get('language');
-  let url = getAPIBaseURL() + '/language/' + languageEnglishName;
+  let url = getAPIBaseURL() + 'language/' + languageEnglishName;
   
   // Send the request to the API /countries/ endpoint
   fetch(url, {method: 'get'})
@@ -51,7 +51,7 @@ function loadLanguageInfo() {
       let countriesList = language['countries'];
       let countriesHTML = '';
       for(let c = 0; c < countriesList.length; c++) {
-        countryURL = getBaseURL() + '/country_info/?country=' + countriesList[c]['country_code'];
+        countryURL = getBaseURL() + 'country_info/?country=' + countriesList[c]['country_code'];
         countriesHTML += '<a href=\"' + countryURL + '\">' + countriesList[c]['country'] + '</a>, ';
       }
       countriesHTML = countriesHTML.substring(0, countriesHTML.length-2);
