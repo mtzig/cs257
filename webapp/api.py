@@ -167,7 +167,7 @@ def get_info_for_language(language_name):
 def get_search_type(search_string):
   query_country = '''SELECT countries.country_code 
                      FROM countries
-                     WHERE country ILIKE %s'''
+                     WHERE %s ILIKE country'''
             
   query_language = '''SELECT COUNT(en_name)
                       FROM languages

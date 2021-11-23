@@ -2,7 +2,7 @@
     app.py
     Thomas Zeng and Cole Weinstein 8 November 2021
 
-    A barebones first draft Flask application for CS257 final project.
+    Flask application for CS257 final project.
 '''
 import flask
 import argparse
