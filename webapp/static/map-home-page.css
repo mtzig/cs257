@@ -9,9 +9,9 @@
  * Datamaps is Copyright (c) 2012 Mark DiMarco
  * https://github.com/markmarkoh/datamaps
  */
- #map-container {
-    /*position: relative;*/	
-    /*float: left;*/
+#map-container {
+    position: relative;
+    float: left;
 	margin: auto;
 
     /* Preserving the container div's aspect ratio (which should be 4:3 for
@@ -21,22 +21,30 @@
      * https://css-tricks.com/aspect-ratio-boxes/
      */
     height: 0;
-    width: 50%;
-    padding-bottom: 45%;
+    width: 60%;
+    padding-bottom: 54%;
+
 
     background: #6796fd;
 }
 
 .datamaps-subunit {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .datamaps-legend {
-  position: static;
+    position: relative;
+    top: 0px;
 }
 
 .hoverpopup {
     background: #eeeeee;
     border: 1px black solid;
     padding: 5px;
+    margin: 0px auto;
+    width: 285px;
+}
+
+#empty-div {
+    height: 175px;
 }
