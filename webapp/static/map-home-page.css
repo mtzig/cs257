@@ -24,14 +24,15 @@
     width: 50%;
     padding-bottom: 45%;
 
-
     background: #6796fd;
 }
 
-
+.datamaps-subunit:hover {
+  cursor: pointer;
+}
 
 .hoverpopup {
     background: #eeeeee;
     border: 1px black solid;
-    offset-position: right 10px;
+    padding: 5px;
 }
