@@ -100,7 +100,7 @@ def get_languages_for_country(country_code):
              FROM countries, languages, languages_countries
              WHERE countries.country_code ILIKE %s
               AND languages_countries.country_id = countries.id
-              AND languages_countries.language__id = languages.id
+              AND languages_countries.language_id = languages.id
              ORDER BY languages.en_name'''
   language_list = []
   try:
@@ -122,7 +122,7 @@ def get_info_for_language(language_name):
   query_language_info = '''SELECT languages.en_name, languages.es_name, languages.fr_name, languages.native_name, languages.speakers, languages.lat, languages.long, vulnerabilities.vulnerability
                            FROM languages, vulnerabilities
                            WHERE languages.en_name ILIKE %s
-                            AND languages.vulnerability_id. = vulnerabilities.id'''
+                            AND languages.vulnerability_id = vulnerabilities.id'''
   
   query_language_countries = '''SELECT countries.country, countries.country_code
                                 FROM countries, languages, languages_countries
@@ -161,7 +161,7 @@ def get_info_for_language(language_name):
 def get_search_type(search_string):
   query_country = '''SELECT countries_short_names.country_code 
                      FROM countries_short_names
-                     WHERE %s ILIKE country_short_names.country_name'''
+                     WHERE %s ILIKE countries_short_names.country_name'''
             
   query_language = '''SELECT COUNT(languages.en_name)
                       FROM languages
