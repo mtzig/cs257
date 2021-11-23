@@ -33,4 +33,5 @@
 .hoverpopup {
     background: #eeeeee;
     border: 1px black solid;
+    offset-position: right 10px;
 }

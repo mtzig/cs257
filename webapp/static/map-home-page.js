@@ -78,9 +78,9 @@ function initializeMap() {
     data: countryData, // here's some data that will be used by the popup template
 	//legend: True,
     fills: { //defaultFill: '#999999' 
-		HIGH: '#2c0845',
-        LOW: '#123456',
+		    HIGH: '#2c0845',
         MEDIUM: 'blue',
+        LOW: '#123456',
         defaultFill: '#999999'
 	
 	},
@@ -93,50 +93,18 @@ function initializeMap() {
 	
   });
 	
-	map.legend();
-  /*var bombs = [{
-      name: 'Joe 4',
-      radius: 1,
-      yield: 400,
-      country: 'USSR',
-      fillKey: 'RUS',
-      significance: 'First fusion weapon test by the USSR (not "staged")',
-      date: '1953-08-12',
-      latitude: 50.07,
-      longitude: 78.43
-    },{
-      name: 'RDS-37',
-      radius: 1,
-      yield: 1600,
-      country: 'USSR',
-      fillKey: 'RUS',
-      significance: 'First "staged" thermonuclear weapon test by the USSR (deployable)',
-      date: '1955-11-22',
-      latitude: 50.07,
-      longitude: 78.43
-
-    },{
-      name: 'Tsar Bomba',
-      radius: 1,
-      yield: 50000,
-      country: 'USSR',
-      fillKey: 'RUS',
-      significance: 'Largest thermonuclear weapon ever tested—scaled down from its initial 100 Mt design by 50%',
-      date: '1961-10-31',
-      latitude: 73.482,
-      longitude: 54.5854
+	map.legend({
+    legendTitle : "Number of Endangered Languages in Country",
+    defaultFillName: "No data",
+    labels: {
+      LOW: "0-9",
+      MEDIUM: "10-49",
+      HIGH: "\u2265 50"
     }
-  ];
-  //draw bubbles for bombs
-  map.bubbles(bombs, {
-      popupTemplate: function (geo, data) {
-              return ['<div class="hoverinfo">' +  data.name,
-              '<br/>Payload: ' +  data.yield + ' kilotons',
-              '<br/>Country: ' +  data.country + '',
-              '<br/>Date: ' +  data.date + '',
-              '</div>'].join('');
-      }
-  });*/
+  }
+
+  );
+  
 	
 }
 
