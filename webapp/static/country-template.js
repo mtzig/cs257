@@ -48,13 +48,21 @@ function loadLanguagesFromCountry() {
     }
 
     let title = document.getElementById('title');
-    if (title) {
-      title.innerHTML = 'Endangered Languages of ' + countryNameBody;
-    }
-
     let header = document.getElementById('country_language_header');
-    if (header) {
-      header.innerHTML = 'Endangered languages of ' + countryNameBody;
+
+    if (countryNameBody == ''){
+      title.innerHTML = 'No data for this country'
+      header.innerHTML = 'No data for this country'
+    }
+    else {
+      if (title) {
+        title.innerHTML = 'Endangered Languages of ' + countryNameBody;
+      }
+
+    
+      if (header) {
+        header.innerHTML = 'Endangered languages of ' + countryNameBody;
+      }
     }
   })
 
