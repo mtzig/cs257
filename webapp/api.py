@@ -199,9 +199,9 @@ def get_country_data():
       cursor2.close()
       
       #sets the color of country to be displayed on map
-      if row[1] < 21:
+      if row[1] <= 20:
         fillVal = 'LOW'
-      elif row[1] < 81:
+      elif row[1] <= 100:
         fillVal = 'MEDIUM'
       else:
         fillVal = 'HIGH'

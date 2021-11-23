@@ -61,8 +61,8 @@ function initializeMap() {
     data: countryData,
     fills: {
 		    HIGH: '#2c0845',
-        MEDIUM: '#9833dd',
-        LOW: '#d4a5f5',
+        MEDIUM: '#5b158c',
+        LOW: '#9833dd',
         defaultFill: '#999999'
 	
 	},
@@ -80,8 +80,8 @@ function initializeMap() {
     defaultFillName: "No data",
     labels: {
       LOW: "0-20",
-      MEDIUM: "21-80",
-      HIGH: "\u226581"
+      MEDIUM: "21-100",
+      HIGH: ">100"
     }
   });
 }
