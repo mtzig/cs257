@@ -50,11 +50,11 @@ function loadLanguagesFromCountry() {
     let title = document.getElementById('title');
     let header = document.getElementById('country_language_header');
 
-    if (countryNameBody == ''){
-      title.innerHTML = 'No data for this country'
-      header.innerHTML = 'No data for this country'
-    }
-    else {
+    // if (countryNameBody == ''){
+    //   title.innerHTML = 'No data for this country'
+    //   header.innerHTML = 'No data for this country'
+    // }
+    // else {
       if (title) {
         title.innerHTML = 'Endangered Languages of ' + countryNameBody;
       }
@@ -63,7 +63,7 @@ function loadLanguagesFromCountry() {
       if (header) {
         header.innerHTML = 'Endangered languages of ' + countryNameBody;
       }
-    }
+    // }
   })
 
   // Log the error if anything went wrong during the fetch.
@@ -88,6 +88,9 @@ function loadLanguagesFromCountry() {
 
     // Put the table body we just built inside the table that's already on the page.
     let languageList = document.getElementById('language_list');
+    if (listBody == ''){
+      listBody = 'No data found.';
+    }
     if (languageList) {
       languageList.innerHTML = listBody;
     }
