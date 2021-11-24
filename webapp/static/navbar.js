@@ -10,15 +10,15 @@ function initializeNavbar() {
   fillNavbar();
 
   let search = document.getElementById('search_button');
-  let search_box = document.getElementById("search_box");
+  let searchBox = document.getElementById("search_box");
 
   //lets you press enter to search	
-  search_box.addEventListener("keyup", function(event) {
+  searchBox.addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode === 13) {
-        search.click();
+      search.click();
     }
-});
+  });
   
   if(search) {
     search.onclick = searchType;
@@ -47,7 +47,7 @@ function getAPIBaseURL() {
   baseURL = window.location.protocol
           + '//' + window.location.hostname
           + ':' + window.location.port
-          + '/api/';
+          + '/api';
   return baseURL;
 }
 

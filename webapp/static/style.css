@@ -38,19 +38,19 @@ ul.navbar li a:hover {
     color: white;
 }
 
-.flex-container {
+.search{
+  height: 18px;
+  width: 600px;
+}
+
+.map-and-search-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   align-self: center;
 }
 
-.search{
-  height: 18px;
-  width: 600px;
-}
-
-.flex-container-search {
+.home-page-search {
   display: flex;
   flex-direction: row;
   align-items: center;

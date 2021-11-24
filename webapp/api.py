@@ -33,19 +33,21 @@ def get_country_name(country_code):
              FROM countries_short_names
              WHERE countries_short_names.country_code ILIKE %s;'''
   
-  country_list = []
+  country_name_list = []
   try:
     connection = get_connection()
     cursor = connection.cursor()
     cursor.execute(query, (country_code,))
-    for row in cursor:
-      country_list.append({'country':row[0]})
+
+    for row in cursor: # there should be one row in this cursor
+      country_name_list.append({'country':row[0]})
+
     cursor.close()
     connection.close()
   except Exception as e:
     print(e, file=sys.stderr)
 
-  return json.dumps(country_list)
+  return json.dumps(country_name_list)
 
 
 @api.route('/country/language/<country_code>')
@@ -65,9 +67,11 @@ def get_languages_for_country(country_code):
     connection = get_connection()
     cursor = connection.cursor()
     cursor.execute(query, (country_code,))
+
     for row in cursor:
-      language = {'language_name':row[0]}
-      language_list.append(language)
+      language_name = {'language_name':row[0]}
+      language_list.append(language_name)
+
     cursor.close()
     connection.close()
   except Exception as e:
@@ -95,26 +99,31 @@ def get_info_for_language(language_name):
 
   language_list = []
   try:
-    lang_connection = get_connection()
-    lang_cursor = lang_connection.cursor()
-    lang_cursor.execute(query_language_info, (language_name,))
-    for row in lang_cursor:
+    lang_info_connection = get_connection()
+    lang_info_cursor = lang_info_connection.cursor()
+    lang_info_cursor.execute(query_language_info, (language_name,))
+
+    for row in lang_info_cursor:
       country_list = []
       try:
         country_connection = get_connection()
         country_cursor = country_connection.cursor()
         country_cursor.execute(query_language_countries, (language_name,))
+
         for country in country_cursor:
           country_info = {'country':country[0], 'country_code':country[1]}
           country_list.append(country_info)
+
         country_cursor.close()
         country_connection.close()
       except Exception as e:
         print(e, file=sys.stderr)
+
       language = {'en_name':row[0], 'es_name':row[1], 'fr_name':row[2], 'native_name':row[3], 'speakers':row[4], 'lat':float(row[5]), 'long':float(row[6]), 'vulnerability':row[7], 'countries':country_list} 
       language_list.append(language)
-    lang_cursor.close()
-    lang_connection.close()
+
+    lang_info_cursor.close()
+    lang_info_connection.close()
   except Exception as e:
     print(e, file=sys.stderr)
 
@@ -125,7 +134,7 @@ def get_search_type(search_string):
   ''' Returns information about the type of data the
       specified search string is. For example, if the
       search string is a country's name, this function
-      returns that country's alpha 3 code. If the search
+      returns that country's ISO 3 code. If the search
       string is a language, the function returns the
       number of languages whose English name matches
       the search string. (This number is almost always
@@ -140,25 +149,30 @@ def get_search_type(search_string):
                       FROM languages
                       WHERE languages.en_name ILIKE %s'''
   
-  search_status = -1; #function returns alpha_3 code if country, 1 if it's a language, and -1 otherwise.
+  search_status = -1; #function returns ISO3 code if country, 1 if it's a language, and -1 otherwise.
   try:
-      connection = get_connection()
-      cursor = connection.cursor()
-      cursor.execute(query_country, (search_string,))
-      for row in cursor:
-          search_status = row[0]
-      cursor.close()
-      connection.close()
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute(query_country, (search_string,))
+
+    for row in cursor:
+        search_status = row[0]
+
+    cursor.close()
+    connection.close()
   except Exception as e:
-      print(e, file=sys.stderr)
+    print(e, file=sys.stderr)
+
   if search_status == -1:
     try:
       connection = get_connection()
       cursor = connection.cursor()
       cursor.execute(query_language, (search_string,))
+
       for row in cursor:
         if row[0] >= 1:
           search_status = row[0]
+
       cursor.close()
       connection.close()
     except Exception as e:
@@ -190,13 +204,16 @@ def get_country_data():
     connection = get_connection()
     cursor = connection.cursor()
     cursor.execute(query_country_data, tuple())
+
     for row in cursor:
       language_list = []
-      cursor2 = connection.cursor()
-      cursor2.execute(query_country_language, (row[0],))
-      for row2 in cursor2:
-        language_list.append(row2[0])
-      cursor2.close()
+      language_cursor = connection.cursor()
+      language_cursor.execute(query_country_language, (row[0],))
+      
+      for language in language_cursor:
+        language_list.append(language[0])
+        
+      language_cursor.close()
       
       #sets the color of country to be displayed on map
       if row[1] <= 20:

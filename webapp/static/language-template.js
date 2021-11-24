@@ -27,9 +27,8 @@ function getAPIBaseURL() {
 function loadLanguageInfo() {
   let params = (new URL(document.location)).searchParams;
   let languageEnglishName = params.get('language');
-  let url = getAPIBaseURL() + 'language/' + languageEnglishName;
-  
-  // Send the request to the API /countries/ endpoint
+  let url = getAPIBaseURL() + '/language/' + languageEnglishName;
+
   fetch(url, {method: 'get'})
 
   .then((response) => response.json())
@@ -44,12 +43,13 @@ function loadLanguageInfo() {
     ? value = 'n/a' // set value to 'n/a' if it was null
     : value);
 
-    // Resolve: if k>1, info for every language becomes incoherently merged.
+    // 'languages' should be a list of one language, since no two languages have the same English name
     for (let k = 0; k < languages.length; k++) {
       let language = languages[k];
       namesListBody += '<li>Spanish Name: ' + language['es_name'] + '</li>\n'
                      + '<li>French Name: ' + language['fr_name'] + '</li>\n'
                      + '<li>Name in the Language: ' + language['native_name'] + '</li>\n';
+
       endangermentListBody += '<li>Number of Speakers: ' + language['speakers'] + '</li>\n'
                             + '<li>Level of Endangerment: ' + language['vulnerability'] + '</li>\n';
       
@@ -64,8 +64,7 @@ function loadLanguageInfo() {
                         + '<li>Latitude: ' + language['lat'] + '</li>\n'
                         + '<li>Longitude: ' + language['long'] + '</li>\n'
     }
-    
-    // Put the contents of the divBody we built into the div element on the page.
+
     let title = document.getElementById('title');
     if (title) {
       title.innerHTML = languageEnglishName;

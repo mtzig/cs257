@@ -27,18 +27,16 @@ function getAPIBaseURL() {
 function loadLanguagesFromCountry() {
   let params = (new URL(document.location)).searchParams;
   let countryCode = params.get('country');
-  let languagesUrl = getAPIBaseURL() + 'country/language/' + countryCode;
-  let countryNameUrl = getAPIBaseURL() + 'country/name/' + countryCode;
+  let languageURL = getAPIBaseURL() + '/country/language/' + countryCode;
+  let countryNameURL = getAPIBaseURL() + '/country/name/' + countryCode;
   
-  // Send the request to the API /countries/ endpoint
-  fetch(countryNameUrl, {method: 'get'})
+  fetch(countryNameURL, {method: 'get'})
 
-  // When the results come back, transform them from a JSON string into
-  // a Javascript object (in this case, a list of country dictionaries).
   .then((response) => response.json())
 
   .then(function(countryNameList) {
     let countryNameBody = '';
+    // countryNameList should have one element, the English name of the one country with the specified ISO3 code. So, countryNameBody should just be the first (and only) element of countryNameList (ie. the name of the country).
     for (let k = 0; k < countryNameList.length; k++) {
       countryNameBody += countryNameList[k]['country'];
     }
@@ -46,53 +44,40 @@ function loadLanguagesFromCountry() {
     let title = document.getElementById('title');
     let header = document.getElementById('country_language_header');
 
-    // if (countryNameBody == ''){
-    //   title.innerHTML = 'No data for this country'
-    //   header.innerHTML = 'No data for this country'
-    // }
-    // else {
-      if (title) {
-        title.innerHTML = 'Endangered Languages of ' + countryNameBody;
-      }
-
-    
-      if (header) {
-        header.innerHTML = 'Endangered languages of ' + countryNameBody;
-      }
-    // }
+    if (title) {
+      title.innerHTML = 'Endangered Languages of ' + countryNameBody;
+    }
+    if (header) {
+      header.innerHTML = 'Endangered languages of ' + countryNameBody;
+    }
   })
 
-  // Log the error if anything went wrong during the fetch.
   .catch(function(error) {
     console.log(error);
   });
   
-  // Send the request to the API /countries/ endpoint
-  fetch(languagesUrl, {method: 'get'})
+  fetch(languageURL, {method: 'get'})
 
-  // When the results come back, transform them from a JSON string into
-  // a Javascript object (in this case, a list of country dictionaries).
   .then((response) => response.json())
 
   .then(function(languages) {
-    let listBody = '';
+    let languageListBody = '';
+    // 'languages' is the list of every endangered language in the country.
     for (let k = 0; k < languages.length; k++) {
       let language = languages[k];
       url = getBaseURL() + '/language_info/?language=' + language['language_name'] + '&country=' + countryCode;
-      listBody += '<li><a href="' + url + '">' + language['language_name'] + '</a></li>\n';
+      languageListBody += '<li><a href="' + url + '">' + language['language_name'] + '</a></li>\n';
     }
 
-    // Put the table body we just built inside the table that's already on the page.
     let languageList = document.getElementById('language_list');
-    if (listBody == ''){
-      listBody = 'No data found.';
+    if (languageListBody == ''){
+      languageListBody = 'No data found.';
     }
     if (languageList) {
-      languageList.innerHTML = listBody;
+      languageList.innerHTML = languageListBody;
     }
   })
 
-  // Log the error if anything went wrong during the fetch.
   .catch(function(error) {
     console.log(error);
   });
