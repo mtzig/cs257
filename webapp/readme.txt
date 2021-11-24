@@ -13,6 +13,4 @@ Additionally, a search bar is present on every page to allow the user to find a 
 
 Ideas about pagination of extensive results has not been implemented. Points representing the location of each language in the database have not been implemented yet either.
 
-??
-
 NOTES: Resizing the window (more specifically, resizing the viewport) does not change the size of the map, unless the page is reloaded.
