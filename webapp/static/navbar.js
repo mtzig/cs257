@@ -86,7 +86,7 @@ function searchType() {
     if (typeof stringTypeResult === 'string') {
       loadCountryTemplate(stringTypeResult);
     }
-    //api returns number of languages found if it is a language
+    //api returns number of languages found if it is a language (should always be 1 for our database)
     else if (stringTypeResult >= 1) {
       loadLanguageTemplate();
     }
