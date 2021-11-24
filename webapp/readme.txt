@@ -1,28 +1,18 @@
 AUTHORS: Thomas Zeng, Cole Weinstein
 
-
 DATA: Statistics about Endangered Languages, e.g. geographic data, num speakers, endangered level
 
-FEATURES CURRENTLY WORKING:
-- Can search for information about specific language
-- Can search for endangered languages of specific country
-- interactive map that displays a list of a few endangered languages for each country
-  - hovering over a country displays a popup with the country's name, number of endangered languages, and up to 5 of its endangered languages, arbirtrarily selected
-  - clicking on a country leads to a page with a list of every endangered language in the country 
-- basic navigation structure of website
-  - navbar featuring home button and about page is present on each page
-  - search bar present on each page; allows for user to search for a country or language by name
-  - country_template page has links to language_templates for each of its endangered languages
-  - language_template page has links to country_templates for each country the endangered language is found in
-    - 'Countries' field displays a list of all the countries the language is found in (fixed bug with a new listing of each language feature for each country the language was found in)
+The original data was from UNESCO. However, we got the data from Kaggle which scraped from The Guardian which scraped from UNESCO.
 
+All rights reserved to UNESCO. Permission to use the data granted on the basis that this is a personal, non-commercial project. See UNESCO's Terms of Use page for more details: http://www.unesco.org/new/en/terms-of-use/terms-of-use/copyright/
 
-FEATURES NOT YET WORKING:
-- dots on map representing a specific language and its location
-- color code for each country on map based on number of endangered languages in that country
-- robustness of search feature
-  - searching for countries currently has to be exactly like how they looked in original database, e.g. 'Iran (Islamic Republic of)'
-  - languages with multiple names, like Boro, print duplicates of each language feature
-    - add'l, no distinction of country for languages; ie. Boro (ES) is from '' and Karaboro is from 'Ethiopia, Togo', but the page for Boro lists 'Countries:  , Ethiopia, Togo' twice. These languages and the countries they are from should be distinguished
-- better and more consistant css/colors
-- better format of how list of languages are displayed for a country
+The dataset itself can be found at https://www.kaggle.com/the-guardian/extinct-languages, although its original source is on UNESCO's site, found here: http://www.unesco.org/languages-atlas/index.php?hl=en&page=atlasmap (there is a button on the left navigation bar to access the dataset).
+
+STATUS: Map of countries features a pop-up on hover which displays the name of the country, the number of endangered languages in the country, and the 5 most endangered languages of the country. Clicking on the country leads to a new page listing every endangered language of that country.
+Additionally, a search bar is present on every page to allow the user to find a language or country by it's English name. A navbar is also present to allow the user to navigate back to the home page (the world map) or to the about page.
+
+Ideas about pagination of extensive results has not been implemented. Points representing the location of each language in the database have not been implemented yet either.
+
+??
+
+NOTES: Resizing the window (more specifically, resizing the viewport) does not change the size of the map, unless the page is reloaded.

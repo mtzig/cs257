@@ -1,53 +1,58 @@
-REQUEST: /languages/
+REQUEST: /country/name/<country_code>
 
 GET parameters
-    none
+    country_code -- the ISO3 code of the country the user wants the name of
 
-RESPONSE: a JSON list of dictionaries, each of which represents one
-language and its id, sorted alphabetically by English name. 
-Each dictionary in this list will have the following fields.
+RESPONSE: a JSON list of a dictionary containing the name of the language, gathered from the countries_short_names table.
 
-   language -- (TEXT) the English name of the language
-   id -- (INTEGER) the id associated with the language
+EXAMPLE:
+    /country/name/GBR
+
+    [{"country": "United Kingdom"}]
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 REQUEST: /country/language/<country_code>
 
 GET parameters
-    country_code -- the ISO3 code of the country user want language information from
+    country_code -- the ISO3 code of the country the user wants language information from
 
 RESPONSE: a JSON list of dictionaries, each of which represents one
-language associated with country_code, sorted alphabetically by English name. 
+language associated with the country_code, sorted alphabetically by English name. 
 Each dictionary in this list will have the following fields.
 
-   language_name -- (TEXT) the English name of the language
+    language_name -- (TEXT) the English name of the language
 
 EXAMPLE(S):
-  /country/language/GBR
-  
-  [{"language_name": "Alderney French"}, {"language_name": "Cornish"}, {"language_name": "Guernsey French"}, {"language_name": "Irish"}, {"language_name": "Jersey French"}, {"language_name": "Manx"}, {"language_name": "Norn"}, {"language_name": "Romani"}, {"language_name": "Scots"}, {"language_name": "Scottish Gaelic"}, {"language_name": "Welsh"}, {"language_name": "Yiddish (Europe)"}]
+    /country/language/GBR
+    
+    [{"language_name": "Alderney French"}, {"language_name": "Cornish"}, {"language_name": "Guernsey French"}, {"language_name": "Irish"}, {"language_name": "Jersey French"}, {"language_name": "Manx"}, {"language_name": "Norn"}, {"language_name": "Romani"}, {"language_name": "Scots"}, {"language_name": "Scottish Gaelic"}, {"language_name": "Welsh"}, {"language_name": "Yiddish (Europe)"}]
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 REQUEST: /language/<language_name>
 
 GET parameters
     language_name -- English name of language user wants information about
 
-RESPONSE: a JSON list of dictionaries, each of which represents one
-language and its pertinent information, in arbitrary unsorted order
+RESPONSE: a JSON list of one dictionary, which contains the pertient information about the language in question.
 
-   en_name - (TEXT) the English name of the language
-   es_name - (TEXT) the Spanish name of the language
-   fr_name - (TEXT) the French name of the language
-   native_name - (TEXT) the native name of the language
-   speakers - (INTEGER) the number of speakers of the language
-   lat - (DECIMAL) the decimal latitude of the language, up to 4 decimal places
-   long - (DECIMAL) the decimal longitude of the language, up to 4 decimal places
-   vulnerability - (TEXT) the level of endangerment of the language
-   country - (TEXT) the countries the language is based in
+    en_name - (TEXT) the English name of the language
+    es_name - (TEXT) the Spanish name of the language
+    fr_name - (TEXT) the French name of the language
+    native_name - (TEXT) the native name of the language
+    speakers - (INTEGER) the number of speakers of the language
+    lat - (DECIMAL) the decimal latitude of the language, up to 4 decimal places
+    long - (DECIMAL) the decimal longitude of the language, up to 4 decimal places
+    vulnerability - (TEXT) the level of endangerment of the language
+    countries - (ARRAY) the countries the language is based in and their associated ISO3 codes.
 
 EXAMPLE(S):
   /language/Navajo
   
   [{"en_name": "Navajo", "es_name": "navajo", "fr_name": "navajo", "native_name": null, "speakers": 120000, "lat": 35.8044, "long": -108.475, "vulnerability": "Vulnerable", "countries": [{"country": "United States of America", "country_code": "USA"}]}]
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 REQUEST: /search_type/<search_string>
 
@@ -72,6 +77,8 @@ EXAMPLE(S):
   /search_type/"adasd"
   
   [{"search_type": -1}]
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
   
 REQUEST: /country_data/
 
@@ -83,6 +90,15 @@ language, unsorted.
 Each dictionary in this JSON will have the following fields.
 
    numLanguages -- (TEXT) the number of endangered languages in the country
-   languages -- (ARRAY) a list of every endangered language in the country
+   languages -- (ARRAY) a list of the 5 most endangered languages in the country
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+REQUEST: /help/
+
+GET parameters
+    none
+
+RESPONSE: this file
    
    
