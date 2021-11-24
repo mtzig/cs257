@@ -24,6 +24,9 @@ function getAPIBaseURL() {
   return baseURL;
 }
 
+/*
+ * Creates the html code to display information about the language
+ */
 function loadLanguageInfo() {
   let params = (new URL(document.location)).searchParams;
   let languageEnglishName = params.get('language');
@@ -38,9 +41,10 @@ function loadLanguageInfo() {
     let endangermentListBody = '';
     let locationListBody = '';
 
+    // set value to 'n/a' if it is null for better readability
     languages = JSON.parse(JSON.stringify(languages),(key, value) =>
     value == null
-    ? value = 'n/a' // set value to 'n/a' if it was null
+    ? value = 'n/a'
     : value);
 
     // 'languages' should be a list of one language, since no two languages have the same English name
@@ -55,6 +59,7 @@ function loadLanguageInfo() {
       
       let countriesList = language['countries'];
       let countriesHTML = '';
+      
       for(let c = 0; c < countriesList.length; c++) {
         countryURL = getBaseURL() + '/country_info/?country=' + countriesList[c]['country_code'];
         countriesHTML += '<a href=\"' + countryURL + '\">' + countriesList[c]['country'] + '</a>, ';

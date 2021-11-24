@@ -24,6 +24,10 @@ function getAPIBaseURL() {
 var countryData = loadCountryInfo();
 var loadCountryInfoHasRun = false;
 
+/*
+ * Compiles a json dictionary of data of all countries to fill in the interactie map
+ * Then calls intializeMap (necessary for synchronicity) 
+ */
 function loadCountryInfo() {
   let url = getAPIBaseURL() + '/country_data/';
   

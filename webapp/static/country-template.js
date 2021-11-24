@@ -24,7 +24,11 @@ function getAPIBaseURL() {
   return baseURL;
 }
 
+/*
+ * Creates the html code to display the languages of a country
+ */
 function loadLanguagesFromCountry() {
+  
   let params = (new URL(document.location)).searchParams;
   let countryCode = params.get('country');
   let languageURL = getAPIBaseURL() + '/country/language/' + countryCode;
@@ -47,9 +51,11 @@ function loadLanguagesFromCountry() {
     if (title) {
       title.innerHTML = 'Endangered Languages of ' + countryNameBody;
     }
+    
     if (header) {
       header.innerHTML = 'Endangered languages of ' + countryNameBody;
     }
+
   })
 
   .catch(function(error) {
@@ -64,15 +70,20 @@ function loadLanguagesFromCountry() {
     let languageListBody = '';
     // 'languages' is the list of every endangered language in the country.
     for (let k = 0; k < languages.length; k++) {
+      
       let language = languages[k];
+      
       url = getBaseURL() + '/language_info/?language=' + language['language_name'] + '&country=' + countryCode;
       languageListBody += '<li><a href="' + url + '">' + language['language_name'] + '</a></li>\n';
+
     }
 
     let languageList = document.getElementById('language_list');
+    
     if (languageListBody == ''){
       languageListBody = 'No data found.';
     }
+    
     if (languageList) {
       languageList.innerHTML = languageListBody;
     }
