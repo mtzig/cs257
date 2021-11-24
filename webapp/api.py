@@ -214,3 +214,8 @@ def get_country_data():
     print(e, file=sys.stderr)
 
   return json.dumps(country_data_dict)
+
+@api.route('/help/')
+def display_help():
+    help_text = open('templates/help.txt').read()
+    return flask.Response(help_text, mimetype='text/plain')

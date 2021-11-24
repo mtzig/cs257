@@ -27,10 +27,6 @@ def language_info():
 def display_about():
     return flask.render_template('about.html')
 
-@app.route('/help/')
-def display_help():
-    help_text = open('templates/help.txt').read()
-    return flask.Response(help_text, mimetype='text/plain')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('An endangered languages application, including API & DB')
